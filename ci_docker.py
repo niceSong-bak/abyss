@@ -17,7 +17,7 @@ formatter = logging.Formatter('[%(levelname)s] %(asctime)s %(message)s')
 console.setFormatter(formatter)
 LOG.addHandler(console)
 
-DOCKER_REGISTRY = "registry-vpc.cn-zhangjiakou.aliyuncs.com/floozy"
+DOCKER_REGISTRY = "registry.cn-zhangjiakou.aliyuncs.com/floozy"
 CI_CONFIG_FILE = "abyss.properties"
 CI_BUILD_PROJECT_COMMAND = "project.build"
 CI_BUILD_DOCKER_COMMAND = "docker.build"
