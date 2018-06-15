@@ -61,7 +61,7 @@ class Builder:
         self.WORKSPACE_BUILD = self.WORKSPACE_BASE + '/build/'
         self.WORKSPACE_PACKAGE = self.WORKSPACE_BASE + '/package/'
 
-        f = open('yaml_example.yaml')
+        f = open(CI_CONFIG_FILE)
         self.CONFIG = yaml.load(f)
 
     def big_log(self, msg):
