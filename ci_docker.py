@@ -8,6 +8,7 @@ import hashlib
 import os
 import subprocess
 import sys
+import yaml
 
 LOG = logging.getLogger('BuildLogger')
 LOG.setLevel(logging.DEBUG)
@@ -18,11 +19,9 @@ console.setFormatter(formatter)
 LOG.addHandler(console)
 
 DOCKER_REGISTRY = "registry.cn-zhangjiakou.aliyuncs.com/floozy"
-CI_CONFIG_FILE = "abyss.properties"
-CI_BUILD_PROJECT_COMMAND = "project.build"
-CI_BUILD_DOCKER_COMMAND = "docker.build"
-CI_BUILD_DOCKER_NAME = "docker.name"
-CI_DEPLOY_REPO_NAME = "repo.name"
+CI_CONFIG_FILE = "abyss.yaml"
+CI_BUILD_COMMAND = "build"
+CI_DEPLOY_REPO_NAME = "name"
 
 
 class Utils:
@@ -47,31 +46,6 @@ class Utils:
         except Exception as err:
             return str(0)
 
-
-class Properties:
-
-    def __init__(self, file_name):
-        self.file_name = file_name
-        self.properties = {}
-        try:
-            fopen = open(self.file_name, 'r')
-            for line in fopen:
-                line = line.strip()
-                if line.find('=') > 0 and not line.startswith('#'):
-                    strs = line.split('=')
-                    LOG.debug('properties[{key}] = {value}'.format(key=strs[0].strip(), value=strs[1].strip()))
-                    self.properties[strs[0].strip()] = strs[1].strip()
-        except Exception as e:
-            raise e
-        finally:
-            fopen.close()
-
-    def get(self, key, default_value=''):
-        if key in self.properties:
-            return self.properties[key]
-        return default_value
-
-
 class Builder:
     def __init__(self, params_dic):
         # 传参
@@ -87,7 +61,8 @@ class Builder:
         self.WORKSPACE_BUILD = self.WORKSPACE_BASE + '/build/'
         self.WORKSPACE_PACKAGE = self.WORKSPACE_BASE + '/package/'
 
-        self.CONFIG = Properties(self.WORKSPACE_BUILD + CI_CONFIG_FILE)
+        f = open('yaml_example.yaml')
+        self.CONFIG = yaml.load(f)
 
     def big_log(self, msg):
         LOG.debug('\n')
@@ -154,19 +129,13 @@ class Builder:
         :return: True or False 编译是否成功
         """
 
-        self.big_log('Start Building Project Source')
-        LOG.debug(self.CONFIG.get(CI_BUILD_PROJECT_COMMAND))
-        build_project = subprocess.call(self.CONFIG.get(CI_BUILD_PROJECT_COMMAND), shell=True, cwd=self.WORKSPACE_BUILD)
-        if build_project != 0:
-            logging.error("Project build failed")
-            return False
-
-        self.big_log('Start Building Docker Image')
-        LOG.debug(self.CONFIG.get(CI_BUILD_DOCKER_COMMAND))
-        build_docker = subprocess.call(self.CONFIG.get(CI_BUILD_DOCKER_COMMAND), shell=True, cwd=self.WORKSPACE_BUILD)
-        if build_docker != 0:
-            logging.error("Docker build failed")
-            return False
+        for command in self.CONFIG[CI_BUILD_COMMAND]:
+            LOG.debug(command)
+            build_project = subprocess.call(command, shell=True,
+                                            cwd=self.WORKSPACE_BUILD)
+            if build_project != 0:
+                logging.error("Project build failed")
+                return False
 
         return True
 
