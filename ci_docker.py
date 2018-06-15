@@ -46,6 +46,7 @@ class Utils:
         except Exception as err:
             return str(0)
 
+
 class Builder:
     def __init__(self, params_dic):
         # 传参
@@ -127,7 +128,7 @@ class Builder:
         编译阶段
         :return: True or False 编译是否成功
         """
-        f = open(CI_CONFIG_FILE)
+        f = open(self.WORKSPACE_BUILD + CI_CONFIG_FILE)
         self.CONFIG = yaml.load(f)
 
         for command in self.CONFIG[CI_BUILD_COMMAND]:
