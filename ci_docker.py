@@ -61,8 +61,7 @@ class Builder:
         self.WORKSPACE_BUILD = self.WORKSPACE_BASE + '/build/'
         self.WORKSPACE_PACKAGE = self.WORKSPACE_BASE + '/package/'
 
-        f = open(CI_CONFIG_FILE)
-        self.CONFIG = yaml.load(f)
+        self.CONFIG = None
 
     def big_log(self, msg):
         LOG.debug('\n')
@@ -128,6 +127,8 @@ class Builder:
         编译阶段
         :return: True or False 编译是否成功
         """
+        f = open(CI_CONFIG_FILE)
+        self.CONFIG = yaml.load(f)
 
         for command in self.CONFIG[CI_BUILD_COMMAND]:
             LOG.debug(command)
