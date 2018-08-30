@@ -159,7 +159,9 @@ class Builder:
         LOG.debug("repo " + self.CONFIG.get(CI_DEPLOY_REPO_NAME))
         imageID = subprocess.check_output('docker images -q {repo}'.format(repo=self.CONFIG.get(CI_DEPLOY_REPO_NAME)),
                                           shell=True).decode('utf-8').split('\n')[0]
-        LOG.debug("imageID " + imageID)
+        if imageID == "":
+            logging.error("Image not fond: "+self.CONFIG.get(CI_DEPLOY_REPO_NAME))
+            return False
 
         tag_latest = subprocess.call(
             'docker tag {imageID} {registry}/{repo}:latest'.format(
