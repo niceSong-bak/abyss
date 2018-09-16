@@ -9,7 +9,7 @@ import os
 import subprocess
 import sys
 import yaml
-import email
+import ci_notify
 
 LOG = logging.getLogger('BuildLogger')
 LOG.setLevel(logging.DEBUG)
@@ -200,7 +200,7 @@ class Builder:
 
     def send_email(self):
         self.big_log('Start Send Email')
-        if email.send_email(self.CONFIG.get(CI_NOTIFY_EMAIL), self.CONFIG.get(CI_DEPLOY_REPO_NAME), self.TAG):
+        if ci_notify.send_email(self.CONFIG.get(CI_NOTIFY_EMAIL), self.CONFIG.get(CI_DEPLOY_REPO_NAME), self.TAG):
             logging.info("Send Email Success")
         else:
             logging.error("Send Email failed")
