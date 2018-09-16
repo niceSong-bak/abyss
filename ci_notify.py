@@ -24,7 +24,7 @@ def notify(to, project_name, project_version):
             mail = MIMEText(body.encode(encoding), 'plain', encoding)
             mail['Subject'] = Header(subject, encoding)
             mail['From'] = fromMail
-            mail['To'] = to
+            mail['To'] = ', '.join(to)
             mail['Date'] = formatdate()
 
             smtp = smtplib.SMTP_SSL(smtpHost, sslPort)
