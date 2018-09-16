@@ -200,10 +200,10 @@ class Builder:
 
     def send_email(self):
         self.big_log('Start Send Email')
-        if ci_notify.send_email(self.CONFIG.get(CI_NOTIFY_EMAIL), self.CONFIG.get(CI_DEPLOY_REPO_NAME), self.TAG):
+        if ci_notify.notify(self.CONFIG.get(CI_NOTIFY_EMAIL), self.CONFIG.get(CI_DEPLOY_REPO_NAME), self.TAG):
             logging.info("Send Email Success")
         else:
-            logging.error("Send Email failed")
+            logging.error("Send Email Failed")
         return True
 
 
