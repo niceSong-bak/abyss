@@ -9,6 +9,7 @@ import os
 import subprocess
 import sys
 import yaml
+import email
 
 LOG = logging.getLogger('BuildLogger')
 LOG.setLevel(logging.DEBUG)
@@ -22,6 +23,7 @@ DOCKER_REGISTRY = "registry.cn-zhangjiakou.aliyuncs.com/floozy"
 CI_CONFIG_FILE = "abyss.yaml"
 CI_BUILD_COMMAND = "build"
 CI_DEPLOY_REPO_NAME = "name"
+CI_NOTIFY_EMAIL = "email"
 
 
 class Utils:
@@ -160,7 +162,7 @@ class Builder:
         imageID = subprocess.check_output('docker images -q {repo}'.format(repo=self.CONFIG.get(CI_DEPLOY_REPO_NAME)),
                                           shell=True).decode('utf-8').split('\n')[0]
         if imageID == "":
-            logging.error("Image not fond: "+self.CONFIG.get(CI_DEPLOY_REPO_NAME))
+            logging.error("Image not fond: " + self.CONFIG.get(CI_DEPLOY_REPO_NAME))
             return False
 
         tag_latest = subprocess.call(
@@ -196,6 +198,14 @@ class Builder:
 
         return True
 
+    def send_email(self):
+        self.big_log('Start Send Email')
+        if email.send_email(self.CONFIG.get(CI_NOTIFY_EMAIL), self.CONFIG.get(CI_DEPLOY_REPO_NAME), self.TAG):
+            logging.info("Send Email Success")
+        else:
+            logging.error("Send Email failed")
+        return True
+
 
 if __name__ == "__main__":
     build_param_dic = {}
@@ -212,7 +222,8 @@ if __name__ == "__main__":
         if builder.prepare_workspace() \
                 and builder.pull_code() \
                 and builder.build() \
-                and builder.push_docker():
+                and builder.push_docker() \
+                and builder.send_email():
 
             builder.big_log("Build Success")
         else:
