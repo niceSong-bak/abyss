@@ -134,7 +134,7 @@ class Builder:
         """
         f = open(self.WORKSPACE_BUILD + CI_CONFIG_FILE)
         self.CONFIG = yaml.load(f)
-
+        LOG.debug("Read release build command")
         for command in self.CONFIG[CI_BUILD_COMMAND][CI_BUILD_COMMAND_RELEASE]:
             LOG.debug(command)
             build_project = subprocess.call(command, shell=True,
