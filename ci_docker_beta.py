@@ -21,6 +21,8 @@ LOG.addHandler(console)
 DOCKER_REGISTRY = "registry.cn-zhangjiakou.aliyuncs.com/plantation"
 CI_CONFIG_FILE = "abyss.yaml"
 CI_BUILD_COMMAND = "build"
+CI_BUILD_COMMAND_RELEASE = "release"
+CI_BUILD_COMMAND_BETA = "beta"
 CI_DEPLOY_REPO_NAME = "name"
 
 
@@ -130,8 +132,8 @@ class Builder:
         """
         f = open(self.WORKSPACE_BUILD + CI_CONFIG_FILE)
         self.CONFIG = yaml.load(f)
-
-        for command in self.CONFIG[CI_BUILD_COMMAND]:
+        LOG.debug("Read beta build command")
+        for command in self.CONFIG[CI_BUILD_COMMAND][CI_BUILD_COMMAND_BETA]:
             LOG.debug(command)
             build_project = subprocess.call(command, shell=True,
                                             cwd=self.WORKSPACE_BUILD)
