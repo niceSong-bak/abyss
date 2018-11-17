@@ -167,16 +167,17 @@ class Builder:
             logging.error("Image not fond: " + self.CONFIG.get(CI_DEPLOY_REPO_NAME))
             return False
 
+        repo_name = self.CONFIG.get(CI_DEPLOY_REPO_NAME).split("/")[-1]
         tag_latest = subprocess.call(
             'docker tag {imageID} {registry}/{repo}:latest'.format(
-                imageID=imageID, registry=DOCKER_REGISTRY, repo=self.CONFIG.get(CI_DEPLOY_REPO_NAME)), shell=True)
+                imageID=imageID, registry=DOCKER_REGISTRY, repo=repo_name), shell=True)
         if tag_latest != 0:
             logging.error("Docker Tag latest failed")
             return False
 
         tag_version = subprocess.call(
             'docker tag {imageID} {registry}/{repo}:{tag}'.format(
-                imageID=imageID, registry=DOCKER_REGISTRY, repo=self.CONFIG.get(CI_DEPLOY_REPO_NAME), tag=self.TAG),
+                imageID=imageID, registry=DOCKER_REGISTRY, repo=repo_name, tag=self.TAG),
             shell=True)
         if tag_version != 0:
             logging.error("Docker Tag " + self.TAG + " failed")
@@ -186,14 +187,14 @@ class Builder:
 
         push_latest = subprocess.call(
             'docker push {registry}/{repo}:latest'.format(
-                registry=DOCKER_REGISTRY, repo=self.CONFIG.get(CI_DEPLOY_REPO_NAME)), shell=True)
+                registry=DOCKER_REGISTRY, repo=repo_name), shell=True)
         if push_latest != 0:
             logging.error("Docker push " + self.TAG + " failed")
             return False
 
         push_version = subprocess.call(
             'docker push {registry}/{repo}:{tag}'.format(
-                registry=DOCKER_REGISTRY, repo=self.CONFIG.get(CI_DEPLOY_REPO_NAME), tag=self.TAG), shell=True)
+                registry=DOCKER_REGISTRY, repo=repo_name, tag=self.TAG), shell=True)
         if push_version != 0:
             logging.error("Docker push " + self.TAG + " failed")
             return False
