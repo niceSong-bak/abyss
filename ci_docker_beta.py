@@ -151,7 +151,7 @@ class Builder:
         self.big_log('Start Login Docker Registry')
 
         tag_latest = subprocess.call(
-            'docker login -u 季诺科技 -p aaron123 {registry}'.format(
+            'docker login -u 季诺科技 -p H32Npgzl {registry}'.format(
                 registry=DOCKER_REGISTRY), shell=True, cwd=self.WORKSPACE_BUILD)
         if tag_latest != 0:
             logging.error("Docker Tag latest failed")
