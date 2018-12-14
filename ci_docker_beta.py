@@ -191,10 +191,10 @@ class Builder:
             return False
 
         push_version = subprocess.call(
-            'docker push {registry}/{repo}:{tag}'.format(
-                registry=DOCKER_REGISTRY, repo=repo_name, tag=self.TAG), shell=True)
+            'docker push {registry}/{repo}:develop'.format(
+                registry=DOCKER_REGISTRY, repo=repo_name), shell=True)
         if push_version != 0:
-            logging.error("Docker push " + self.TAG + " failed")
+            logging.error("Docker push develop failed")
             return False
 
         return True
