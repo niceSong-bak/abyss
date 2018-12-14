@@ -174,11 +174,11 @@ class Builder:
             return False
 
         tag_version = subprocess.call(
-            'docker tag {imageID} {registry}/{repo}:{tag}'.format(
-                imageID=imageID, registry=DOCKER_REGISTRY, repo=repo_name, tag=self.TAG),
+            'docker tag {imageID} {registry}/{repo}:develop'.format(
+                imageID=imageID, registry=DOCKER_REGISTRY, repo=repo_name),
             shell=True)
         if tag_version != 0:
-            logging.error("Docker Tag " + self.TAG + " failed")
+            logging.error("Docker Tag develop failed")
             return False
 
         self.big_log('Start Push Docker Image')
