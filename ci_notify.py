@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
-# Author:zhuchenxi
+# Author:Jude
 import smtplib
 from email.mime.text import MIMEText
 from email.utils import formatdate
