@@ -57,7 +57,7 @@ class Builder:
         self.GIT_URL = params_dic.get('git_url')
         self.GIT_REF = params_dic.get('git_ref')
         self.PROJECT_PATH = params_dic.get('project_path')
-        self.TAG = self.GIT_REF.split('/')[-1]
+        self.TAG = self.GIT_REF.split('refs/heads/')[-1]
 
         self.WORKSPACE_BASE = params_dic.get('WORKSPACE')
         self.WORKSPACE_DOWNLOAD = self.WORKSPACE_BASE + '/download/'
