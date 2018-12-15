@@ -15,11 +15,11 @@ password = 'x1Nbm6wx'
 encoding = 'utf-8'
 
 
-def notify(to, project_name, project_version):
+def notify(to, project_name, project_version, message):
     if to:
         try:
             subject = project_name + ' ' + project_version + ' 编译完毕'
-            body = project_name + ' ' + project_version + ' 在正式环境编译完毕, 已上传到镜像仓库'
+            body = project_name + ' ' + project_version + ' 更新内容: ' + message + ' 正式环境编译完毕, 已上传到镜像仓库'
 
             mail = MIMEText(body.encode(encoding), 'plain', encoding)
             mail['Subject'] = Header(subject, encoding)

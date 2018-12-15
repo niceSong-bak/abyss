@@ -60,6 +60,7 @@ class Builder:
         self.GIT_REF = params_dic.get('git_ref')
         self.PROJECT_PATH = params_dic.get('project_path')
         self.TAG = self.GIT_REF.split('/')[-1]
+        self.MESSAGE = ''
 
         self.WORKSPACE_BASE = params_dic.get('WORKSPACE')
         self.WORKSPACE_DOWNLOAD = self.WORKSPACE_BASE + '/download/'
@@ -116,6 +117,9 @@ class Builder:
         if checkout != 0:
             logging.error("git checkout failed")
             return False
+
+        self.MESSAGE = subprocess.check_output('git tag -l {tag} -n --format "%(subject)"'.format(tag=self.TAG),
+                                               shell=True).decode('utf-8')
 
         # copy
         cp = subprocess.call(
@@ -203,7 +207,8 @@ class Builder:
 
     def send_email(self):
         self.big_log('Start Send Email')
-        if ci_notify.notify(self.CONFIG.get(CI_NOTIFY_EMAIL), self.CONFIG.get(CI_DEPLOY_REPO_NAME), self.TAG):
+        if ci_notify.notify(self.CONFIG.get(CI_NOTIFY_EMAIL), self.CONFIG.get(CI_DEPLOY_REPO_NAME), self.TAG,
+                            self.MESSAGE):
             logging.info("Send Email Success")
         else:
             logging.error("Send Email Failed")
