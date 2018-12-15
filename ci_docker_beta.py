@@ -57,7 +57,8 @@ class Builder:
         self.GIT_URL = params_dic.get('git_url')
         self.GIT_REF = params_dic.get('git_ref')
         self.PROJECT_PATH = params_dic.get('project_path')
-        self.TAG = self.GIT_REF.split('refs/heads/')[-1].replace('/', '-')
+        self.BRANCH = self.GIT_REF.split('refs/heads/')[-1]
+        self.TAG = self.BRANCH.replace('/', '-')
 
         self.WORKSPACE_BASE = params_dic.get('WORKSPACE')
         self.WORKSPACE_DOWNLOAD = self.WORKSPACE_BASE + '/download/'
@@ -108,8 +109,8 @@ class Builder:
             return False
 
         # checkout
-        LOG.debug('git checkout {tag}'.format(tag=self.TAG))
-        checkout = subprocess.call('git checkout {tag}'.format(tag=self.TAG), shell=True,
+        LOG.debug('git checkout {branch}'.format(branch=self.BRANCH))
+        checkout = subprocess.call('git checkout {branch}'.format(branch=self.BRANCH), shell=True,
                                    cwd=self.WORKSPACE_DOWNLOAD + self.PROJECT_PATH)
         if checkout != 0:
             logging.error("git checkout failed")
