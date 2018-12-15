@@ -119,7 +119,8 @@ class Builder:
             return False
 
         self.MESSAGE = subprocess.check_output('git tag -l {tag} -n --format "%(subject)"'.format(tag=self.TAG),
-                                               shell=True).decode('utf-8')
+                                               shell=True,
+                                               cwd=self.WORKSPACE_DOWNLOAD + self.PROJECT_PATH).decode('utf-8')
 
         # copy
         cp = subprocess.call(
