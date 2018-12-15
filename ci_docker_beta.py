@@ -57,7 +57,7 @@ class Builder:
         self.GIT_URL = params_dic.get('git_url')
         self.GIT_REF = params_dic.get('git_ref')
         self.PROJECT_PATH = params_dic.get('project_path')
-        self.TAG = self.GIT_REF.split('refs/heads/')[-1]
+        self.TAG = self.GIT_REF.split('refs/heads/')[-1].replace('/', '-')
 
         self.WORKSPACE_BASE = params_dic.get('WORKSPACE')
         self.WORKSPACE_DOWNLOAD = self.WORKSPACE_BASE + '/download/'
@@ -162,7 +162,7 @@ class Builder:
         imageID = subprocess.check_output('docker images -q {repo}'.format(repo=self.CONFIG.get(CI_DEPLOY_REPO_NAME)),
                                           shell=True).decode('utf-8').split('\n')[0]
         if imageID == "":
-            logging.error("Image not fond: "+self.CONFIG.get(CI_DEPLOY_REPO_NAME))
+            logging.error("Image not fond: " + self.CONFIG.get(CI_DEPLOY_REPO_NAME))
             return False
 
         repo_name = self.CONFIG.get(CI_DEPLOY_REPO_NAME).split("/")[-1]
@@ -174,11 +174,11 @@ class Builder:
             return False
 
         tag_version = subprocess.call(
-            'docker tag {imageID} {registry}/{repo}:develop'.format(
-                imageID=imageID, registry=DOCKER_REGISTRY, repo=repo_name),
+            'docker tag {imageID} {registry}/{repo}:{tag}'.format(
+                imageID=imageID, registry=DOCKER_REGISTRY, repo=repo_name, tag=self.TAG),
             shell=True)
         if tag_version != 0:
-            logging.error("Docker Tag develop failed")
+            logging.error("Docker Tag " + self.TAG + " failed")
             return False
 
         self.big_log('Start Push Docker Image')
@@ -191,10 +191,10 @@ class Builder:
             return False
 
         push_version = subprocess.call(
-            'docker push {registry}/{repo}:develop'.format(
-                registry=DOCKER_REGISTRY, repo=repo_name), shell=True)
+            'docker push {registry}/{repo}:{tag}'.format(
+                registry=DOCKER_REGISTRY, repo=repo_name, tag=self.TAG), shell=True)
         if push_version != 0:
-            logging.error("Docker push develop failed")
+            logging.error("Docker push "+self.TAG+" failed")
             return False
 
         return True
