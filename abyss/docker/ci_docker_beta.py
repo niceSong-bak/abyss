@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+import os
 import subprocess
 import sys
 
@@ -25,10 +26,19 @@ def progress(workplace, git_url, git_ref):
     git_worker.copy_project(file_manager.WORKSPACE_BUILD)
     abyss_config = ConfigParser(file_manager.WORKSPACE_BUILD)
 
+    new_env = os.environ.copy()
+    new_env['pipe'] = os.environ['pipe']
+    new_env['tag'] = git_worker.TAG
+    commit = git_worker.get_commit()
+    new_env['commitId'] = commit[0]
+    new_env['commitTime'] = commit[1]
+    new_env['commitTimeFormat'] = commit[2]
+    new_env['commitMessage'] = commit[3]
+
     # 真正的build
     for command in abyss_config.build_beta():
         build_project = subprocess.call(LOG.debug(command), shell=True,
-                                        cwd=file_manager.WORKSPACE_BUILD)
+                                        cwd=file_manager.WORKSPACE_BUILD, env=new_env)
         if build_project != 0:
             LOG.error("Project build failed")
             return False

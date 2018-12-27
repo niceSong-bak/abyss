@@ -6,8 +6,15 @@ from abyss.docker import ci_docker_beta, ci_docker_prod
 
 __author__ = "Jude"
 
+ci_docker_beta.PIPE = "docker_beta"
+ci_docker_prod.PIPE = "docker"
+
 if __name__ == "__main__":
-    pipe = sys.argv[1]
+
+    if "pipe" in os.environ:
+        pipe = os.environ['pipe']
+    else:
+        raise Exception("Missing pipe")
 
     if "WORKSPACE" in os.environ:
         workplace = os.environ['WORKSPACE']
@@ -24,9 +31,9 @@ if __name__ == "__main__":
     else:
         raise Exception("Missing git_ref")
 
-    if pipe == 'docker':
+    if pipe == ci_docker_prod.PIPE:
         ci_docker_prod.build(workplace, git_url, git_ref)
-    elif pipe == 'docker_beta':
+    elif pipe == ci_docker_beta.PIPE:
         ci_docker_beta.build(workplace, git_url, git_ref)
     else:
         raise Exception("unknown pipe: " + pipe)
