@@ -5,7 +5,13 @@ __author__ = "Jude"
 
 import logging
 
-AbyssLogger = logging.getLogger('AbyssLogger')
+AbyssLogger = logging.getLogger('BuildLogger')
+AbyssLogger.setLevel(logging.DEBUG)
+console = logging.StreamHandler()
+console.setLevel(logging.DEBUG)
+formatter = logging.Formatter('[%(levelname)s] %(asctime)s %(message)s')
+console.setFormatter(formatter)
+AbyssLogger.addHandler(console)
 
 
 def big_log_start(msg):
