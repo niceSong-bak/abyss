@@ -24,6 +24,7 @@ class DockerWorker:
             LOG.error("login failed")
             return False
         LOG.big_log_end('Login Success')
+        return True
 
     def login_aws(self):
         result = subprocess.call(LOG.debug(
@@ -31,6 +32,7 @@ class DockerWorker:
         if result != 0:
             LOG.error("login failed")
             return False
+        return True
 
     def tag(self, repo, tag):
         LOG.big_log_start('Start TAG Docker Image')
@@ -49,6 +51,7 @@ class DockerWorker:
             LOG.error("Docker Tag failed for: ")
             return False
         LOG.big_log_end('Tag Success')
+        return True
 
     def push(self, repo, tag):
         """
