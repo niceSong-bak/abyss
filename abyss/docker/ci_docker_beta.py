@@ -45,12 +45,12 @@ def progress(workplace, git_url, git_ref):
     # 处理镜像
     docker_worker = DockerWorker(
         registry=ALIYUN_DOCKER_REGISTRY,
-        account=ALIYUN_DOCKER_ACCOUNT,
-        password=ALIYUN_DOCKER_PASSWORD,
-        image=abyss_config.image_name()
+        image=abyss_config.image()
     )
-    docker_worker.login()
-    repo_name = ALIYUN_DOCKER_REGISTRY + "/" + abyss_config.image_name()
+    docker_worker.login(
+        account=ALIYUN_DOCKER_ACCOUNT,
+        password=ALIYUN_DOCKER_PASSWORD)
+    repo_name = ALIYUN_DOCKER_REGISTRY + "/" + abyss_config.repo()
 
     docker_worker.tag(repo_name, git_worker.TAG)
     docker_worker.push(repo_name, git_worker.TAG)
@@ -58,7 +58,7 @@ def progress(workplace, git_url, git_ref):
     # 通知
     email_notifier.send_email(
         to=abyss_config.email(),
-        project_name=abyss_config.image_name(),
+        project_name=abyss_config.image(),
         project_version=git_worker.TAG,
         message=git_worker.get_commit()[3]
     )

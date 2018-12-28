@@ -12,7 +12,8 @@ __author__ = "Jude"
 CI_BUILD_COMMAND = "build"
 CI_BUILD_COMMAND_RELEASE = "release"
 CI_BUILD_COMMAND_BETA = "beta"
-CI_DEPLOY_REPO_NAME = "name"
+CI_DEPLOY_IMAGE_NAME = "name"
+CI_DEPLOY_REPO_NAME = "repo"
 CI_NOTIFY_EMAIL = "email"
 
 
@@ -29,8 +30,14 @@ class ConfigParser:
         f = open(config_path)
         self.CONFIG = yaml.load(f)
 
-    def image_name(self):
-        return self.CONFIG.get(CI_DEPLOY_REPO_NAME)
+    def image(self):
+        return self.CONFIG.get(CI_DEPLOY_IMAGE_NAME)
+
+    def repo(self):
+        if CI_DEPLOY_REPO_NAME in self.CONFIG:
+            return self.CONFIG.get(CI_DEPLOY_REPO_NAME)
+        else:
+            return self.CONFIG.get(CI_DEPLOY_IMAGE_NAME)
 
     def build_release(self):
         return self.CONFIG.get(CI_BUILD_COMMAND)[CI_BUILD_COMMAND_RELEASE]
@@ -40,3 +47,5 @@ class ConfigParser:
 
     def email(self):
         return self.CONFIG.get(CI_NOTIFY_EMAIL)
+
+

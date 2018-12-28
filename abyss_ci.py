@@ -2,12 +2,13 @@
 # -*- coding: utf-8 -*-
 import os
 import sys
-from abyss.docker import ci_docker_beta, ci_docker_prod
+from abyss.docker import ci_docker_beta, ci_docker_prod, ci_docker_aws
 
 __author__ = "Jude"
 
 ci_docker_beta.PIPE = "docker_beta"
 ci_docker_prod.PIPE = "docker"
+ci_docker_aws.PIPE = "docker_aws"
 
 if __name__ == "__main__":
 
@@ -35,5 +36,7 @@ if __name__ == "__main__":
         ci_docker_prod.build(workplace, git_url, git_ref)
     elif pipe == ci_docker_beta.PIPE:
         ci_docker_beta.build(workplace, git_url, git_ref)
+    elif pipe == ci_docker_aws.PIPE:
+        ci_docker_aws.build(workplace, git_url, git_ref)
     else:
         raise Exception("unknown pipe: " + pipe)

@@ -12,10 +12,10 @@ from abyss import logger as LOG, email_notifier
 
 __author__ = "Jude"
 
-ALIYUN_DOCKER_REGISTRY = "registry.cn-zhangjiakou.aliyuncs.com/floozy"
-ALIYUN_DOCKER_ACCOUNT = "季诺科技"
-ALIYUN_DOCKER_PASSWORD = "H32Npgzl"
-
+AWS_DOCKER_REGISTRY = "402852579574.dkr.ecr.ap-southeast-1.amazonaws.com"
+"""
+新jenkins slaver机器需要安装配置 aws cli
+"""
 def progress(workplace, git_url, git_ref):
     file_manager = FileManager(workplace)
     file_manager.prepare()
@@ -43,13 +43,11 @@ def progress(workplace, git_url, git_ref):
             return False
     # 处理镜像
     docker_worker = DockerWorker(
-        registry=ALIYUN_DOCKER_REGISTRY,
+        registry=AWS_DOCKER_REGISTRY,
         image=abyss_config.image()
     )
-    docker_worker.login(
-        account=ALIYUN_DOCKER_ACCOUNT,
-        password=ALIYUN_DOCKER_PASSWORD)
-    repo_name = ALIYUN_DOCKER_REGISTRY + "/" + abyss_config.repo()
+    docker_worker.login_aws()
+    repo_name = AWS_DOCKER_REGISTRY + "/" + abyss_config.repo()
 
     docker_worker.tag(repo_name, git_worker.TAG)
     docker_worker.push(repo_name, git_worker.TAG)

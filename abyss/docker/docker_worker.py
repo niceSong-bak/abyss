@@ -9,13 +9,11 @@ __author__ = "Jude"
 
 
 class DockerWorker:
-    def __init__(self, registry, account, password, image):
+    def __init__(self, registry,  image):
         self.REGISTRY = registry
-        self.ACCOUNT = account
-        self.PASSWORD = password
         self.IMAGE = image
 
-    def login(self):
+    def login(self,account, password):
         LOG.big_log_start('Start Login Docker Registry')
         result = subprocess.call(LOG.debug(
             'docker login -u {account} -p {password} {registry}'.format(
@@ -26,6 +24,13 @@ class DockerWorker:
             LOG.error("login failed")
             return False
         LOG.big_log_end('Login Success')
+
+    def login_aws(self):
+        result = subprocess.call(LOG.debug(
+            "$(aws ecr get-login --no-include-email --region ap-southeast-1)"), shell=True)
+        if result != 0:
+            LOG.error("login failed")
+            return False
 
     def tag(self, repo, tag):
         LOG.big_log_start('Start TAG Docker Image')
