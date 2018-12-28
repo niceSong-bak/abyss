@@ -3,7 +3,7 @@
 import os
 import unittest
 
-from abyss.docker import ci_docker_beta, ci_docker_prod
+from abyss.docker import ci_docker_beta, ci_docker_prod, ci_docker_aws
 
 directory = os.path.join(os.path.dirname(os.path.abspath(__file__)) + os.path.sep + "../..", 'build')
 if not os.path.exists(directory):
@@ -24,6 +24,15 @@ class TestProd(unittest.TestCase):
 
     def test_tag(self):
         ci_docker_prod.progress(
+            workplace=directory,
+            git_url="git@gitee.com:floozy/springdemo.git",
+            git_ref="refs/tags/v2.0.42"
+        )
+
+class TestAws(unittest.TestCase):
+
+    def test_tag(self):
+        ci_docker_aws.progress(
             workplace=directory,
             git_url="git@gitee.com:floozy/springdemo.git",
             git_ref="refs/tags/v2.0.42"
