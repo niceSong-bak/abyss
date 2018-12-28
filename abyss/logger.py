@@ -5,7 +5,7 @@ __author__ = "Jude"
 
 import logging
 
-AbyssLogger = logging.getLogger('AbyssLogger')
+AbyssLogger = logging.getLogger('BuildLogger')
 
 
 def big_log_start(msg):
