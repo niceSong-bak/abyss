@@ -17,8 +17,8 @@ class DockerWorker:
         LOG.big_log_start('Start Login Docker Registry')
         result = subprocess.call(LOG.debug(
             'docker login -u {account} -p {password} {registry}'.format(
-                account=self.ACCOUNT,
-                password=self.PASSWORD,
+                account=account,
+                password=password,
                 registry=self.REGISTRY)), shell=True)
         if result != 0:
             LOG.error("login failed")
