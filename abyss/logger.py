@@ -6,7 +6,7 @@ __author__ = "Jude"
 import logging
 
 AbyssLogger = logging.getLogger('BuildLogger')
-
+AbyssLogger.setLevel(logging.DEBUG)
 
 def big_log_start(msg):
     AbyssLogger.debug('\n')
