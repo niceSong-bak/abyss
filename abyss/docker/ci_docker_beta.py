@@ -22,8 +22,10 @@ def progress(workplace, git_url, git_ref):
     file_manager.prepare()
     # Git下载
     git_worker = GitWorker(file_manager.WORKSPACE_DOWNLOAD, git_url, git_ref)
-    git_worker.pull_code()
-    git_worker.copy_project(file_manager.WORKSPACE_BUILD)
+    if not git_worker.pull_code():
+        raise Exception("pull code failed")
+    if not git_worker.copy_project(file_manager.WORKSPACE_BUILD):
+        raise Exception("copy project failed")
     abyss_config = ConfigParser(file_manager.WORKSPACE_BUILD)
 
     new_env = os.environ.copy()
@@ -47,21 +49,25 @@ def progress(workplace, git_url, git_ref):
         registry=ALIYUN_DOCKER_REGISTRY,
         image=abyss_config.image()
     )
-    docker_worker.login(
-        account=ALIYUN_DOCKER_ACCOUNT,
-        password=ALIYUN_DOCKER_PASSWORD)
+    if not docker_worker.login(account=ALIYUN_DOCKER_ACCOUNT, password=ALIYUN_DOCKER_PASSWORD):
+        raise Exception("registry login failed")
+
     repo_name = ALIYUN_DOCKER_REGISTRY + "/" + abyss_config.repo()
 
-    docker_worker.tag(repo_name, git_worker.TAG)
-    docker_worker.push(repo_name, git_worker.TAG)
+    if not docker_worker.tag(repo_name, git_worker.TAG):
+        raise Exception("tag failed")
+
+    if not docker_worker.push(repo_name, git_worker.TAG):
+        raise Exception("push failed")
 
     # 通知
-    email_notifier.send_email(
-        to=abyss_config.email(),
-        project_name=abyss_config.image(),
-        project_version=git_worker.TAG,
-        message=git_worker.get_commit()[3]
-    )
+    if not email_notifier.send_email(
+            to=abyss_config.email(),
+            project_name=abyss_config.image(),
+            project_version=git_worker.TAG,
+            message=git_worker.get_commit()[3]
+    ):
+        raise Exception("send email failed")
 
 
 def build(workplace, git_url, git_ref):
