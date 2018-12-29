@@ -39,7 +39,4 @@ def send_email(to, project_name, project_version, message, result):
         # 发送邮件
         smtp.sendmail(fromMail, to, mail.as_string())
         smtp.close()
-        LOG.big_log_end("Email Send Successful")
-    else:
-        LOG.big_log_end("No address to send email")
     return True

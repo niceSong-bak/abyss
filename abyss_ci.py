@@ -18,28 +18,34 @@ if __name__ == "__main__":
     if "pipe" in os.environ:
         pipe = os.environ['pipe']
     else:
-        raise Exception("Missing pipe")
+        LOG.error("Missing pipe")
+        sys.exit(1)
 
     if "WORKSPACE" in os.environ:
         workplace = os.environ['WORKSPACE']
     else:
-        raise Exception("Missing workplace")
+        LOG.error("Missing workplace")
+        sys.exit(1)
 
     if "git_ssh_url" in os.environ:
         git_url = os.environ['git_ssh_url']
     else:
-        raise Exception("Missing git_ssh_url")
+        LOG.error("Missing git_ssh_url")
+        sys.exit(1)
 
     if "ref" in os.environ:
         git_ref = os.environ['ref']
     else:
-        raise Exception("Missing git_ref")
+        LOG.error("Missing git_ref")
+        sys.exit(1)
 
     if pipe not in PIPES:
-        raise Exception("unknown pipe: " + pipe)
+        LOG.error("unknown pipe: " + pipe)
+        sys.exit(1)
 
     if not PIPES[pipe].progress(pipe, workplace, git_url, git_ref):
-        raise Exception("Jenkins Job Failed!")
+        LOG.big_log_start("Jenkins Job Failed!")
+        sys.exit(1)
 
     LOG.big_log_start("Jenkins Job Success!")
 
