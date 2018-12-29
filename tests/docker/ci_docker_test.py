@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 import os
+import re
 import unittest
 
 from abyss.docker import ci_docker_beta, ci_docker_prod, ci_docker_aws
@@ -28,6 +29,11 @@ class TestProd(unittest.TestCase):
             git_url="git@gitee.com:floozy/springdemo.git",
             git_ref="refs/tags/v2.0.42"
         )
+
+    def test_version(self):
+        version = re.sub('^v(?=\d+)', '', "v1.0.1")
+        self.assertEqual('1.0.1', version)
+
 
 class TestAws(unittest.TestCase):
 
