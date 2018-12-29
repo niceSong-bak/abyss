@@ -38,7 +38,7 @@ if __name__ == "__main__":
     if pipe not in PIPES:
         raise Exception("unknown pipe: " + pipe)
 
-    if not PIPES[pipe].progress(workplace, git_url, git_ref):
+    if not PIPES[pipe].progress(pipe, workplace, git_url, git_ref):
         raise Exception("Jenkins Job Failed!")
 
     LOG.big_log_start("Jenkins Job Success!")
