@@ -9,12 +9,14 @@ from abyss.docker.docker_worker import DockerWorker
 from abyss.file_manager import FileManager
 from abyss.git_worker import GitWorker
 from abyss import logger as LOG, email_notifier
+import re
 
 __author__ = "Jude"
 
 ALIYUN_DOCKER_REGISTRY = "registry.cn-zhangjiakou.aliyuncs.com/floozy"
 ALIYUN_DOCKER_ACCOUNT = "季诺科技"
 ALIYUN_DOCKER_PASSWORD = "H32Npgzl"
+
 
 def progress(workplace, git_url, git_ref):
     file_manager = FileManager(workplace)
@@ -29,7 +31,11 @@ def progress(workplace, git_url, git_ref):
 
     new_env = os.environ.copy()
     new_env['pipe'] = os.environ['pipe']
-    new_env['tag'] = git_worker.TAG
+
+    # 在正式环境只有tag
+    version = re.sub('^v(?=\d+)', git_worker.TAG, '')
+    new_env['version'] = version
+
     commit = git_worker.get_commit()
     new_env['commitId'] = commit[0]
     new_env['commitTime'] = commit[1]

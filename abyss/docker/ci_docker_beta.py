@@ -30,8 +30,8 @@ def progress(workplace, git_url, git_ref):
 
     new_env = os.environ.copy()
     new_env['pipe'] = os.environ['pipe']
-    new_env['tag'] = git_worker.TAG
     commit = git_worker.get_commit()
+    new_env['version'] = git_worker.TAG+"."+commit[0]
     new_env['commitId'] = commit[0]
     new_env['commitTime'] = commit[1]
     new_env['commitTimeFormat'] = commit[2]
