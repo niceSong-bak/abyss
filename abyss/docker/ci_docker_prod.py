@@ -47,8 +47,7 @@ def progress(workplace, git_url, git_ref):
         build_project = subprocess.call(LOG.debug(command), shell=True,
                                         cwd=file_manager.WORKSPACE_BUILD, env=new_env)
         if build_project != 0:
-            LOG.error("Project build failed")
-            return False
+            raise Exception("Project build failed")
     # 处理镜像
     docker_worker = DockerWorker(
         registry=ALIYUN_DOCKER_REGISTRY,
@@ -79,18 +78,3 @@ def progress(workplace, git_url, git_ref):
             message=git_worker.get_commit()[3]
     ):
         raise Exception("send email failed")
-
-
-def build(workplace, git_url, git_ref):
-    error_exit = False
-    try:
-        progress(workplace, git_url, git_ref)
-    except Exception as e:
-        LOG.error("Exception is " + str(e))
-        error_exit = True
-    finally:
-        if error_exit:
-            LOG.big_log_start("Jenkins Job Failed!")
-            sys.exit(-1)
-        else:
-            LOG.big_log_start("Jenkins Job DONE!")

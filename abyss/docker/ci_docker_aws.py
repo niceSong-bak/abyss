@@ -17,6 +17,8 @@ AWS_DOCKER_REGISTRY = "402852579574.dkr.ecr.ap-southeast-1.amazonaws.com"
 """
 新jenkins slaver机器需要安装配置 aws cli
 """
+
+
 def progress(workplace, git_url, git_ref):
     file_manager = FileManager(workplace)
     file_manager.prepare()
@@ -46,13 +48,14 @@ def progress(workplace, git_url, git_ref):
         build_project = subprocess.call(LOG.debug(command), shell=True,
                                         cwd=file_manager.WORKSPACE_BUILD, env=new_env)
         if build_project != 0:
-            LOG.error("Project build failed")
-            return False
+            raise Exception("Project build failed")
+
     # 处理镜像
     docker_worker = DockerWorker(
         registry=AWS_DOCKER_REGISTRY,
         image=abyss_config.image()
     )
+
     if not docker_worker.login_aws():
         raise Exception("registry login failed")
 
@@ -64,27 +67,13 @@ def progress(workplace, git_url, git_ref):
     if not docker_worker.push(repo_name, git_worker.TAG):
         raise Exception("push failed")
 
-
     # 通知
     if not email_notifier.send_email(
             to=abyss_config.email(),
             project_name=abyss_config.image(),
             project_version=git_worker.TAG,
             message=git_worker.get_commit()[3]
-        ):
+    ):
         raise Exception("send email failed")
 
 
-def build(workplace, git_url, git_ref):
-    error_exit = False
-    try:
-        progress(workplace, git_url, git_ref)
-    except Exception as e:
-        LOG.error("Exception is " + str(e))
-        error_exit = True
-    finally:
-        if error_exit:
-            LOG.big_log_start("Jenkins Job Failed!")
-            sys.exit(-1)
-        else:
-            LOG.big_log_start("Jenkins Job DONE!")
