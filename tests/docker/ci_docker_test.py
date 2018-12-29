@@ -17,7 +17,8 @@ class TestBeta(unittest.TestCase):
         ci_docker_beta.progress(
             workplace=directory,
             git_url="git@gitee.com:floozy/springdemo.git",
-            git_ref="refs/heads/master"
+            git_ref="refs/heads/master",
+            pipe="docker_beta"
         )
 
 
@@ -27,7 +28,8 @@ class TestProd(unittest.TestCase):
         ci_docker_prod.progress(
             workplace=directory,
             git_url="git@gitee.com:floozy/springdemo.git",
-            git_ref="refs/tags/v2.0.42"
+            git_ref="refs/tags/v2.0.42",
+            pipe="docker_beta"
         )
 
     def test_version(self):
@@ -41,7 +43,8 @@ class TestAws(unittest.TestCase):
         ci_docker_aws.progress(
             workplace=directory,
             git_url="git@gitee.com:floozy/springdemo.git",
-            git_ref="refs/tags/v2.0.42"
+            git_ref="refs/tags/v2.0.42",
+            pipe="docker_beta"
         )
 
 
