@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 import os
+import re
 import subprocess
 import sys
 
@@ -29,7 +30,11 @@ def progress(workplace, git_url, git_ref):
 
     new_env = os.environ.copy()
     new_env['pipe'] = os.environ['pipe']
-    new_env['tag'] = git_worker.TAG
+
+    # 在正式环境只有tag
+    version = re.sub('^v(?=\d+)', git_worker.TAG, '')
+    new_env['version'] = version
+
     commit = git_worker.get_commit()
     new_env['commitId'] = commit[0]
     new_env['commitTime'] = commit[1]
