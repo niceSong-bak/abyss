@@ -55,10 +55,16 @@ def progress(workplace, git_url, git_ref):
     repo_name = ALIYUN_DOCKER_REGISTRY + "/" + abyss_config.repo()
 
     if not docker_worker.tag(repo_name, git_worker.TAG):
-        raise Exception("tag failed")
+        raise Exception("tag "+git_worker.TAG+"failed")
 
     if not docker_worker.push(repo_name, git_worker.TAG):
-        raise Exception("push failed")
+        raise Exception("push "+git_worker.TAG+"failed")
+
+    if not docker_worker.tag(repo_name, 'latest'):
+        raise Exception("tag latest failed")
+
+    if not docker_worker.push(repo_name, 'latest'):
+        raise Exception("push latest failed")
 
     # 通知
     if not email_notifier.send_email(
