@@ -18,7 +18,7 @@ encoding = 'utf-8'
 
 def send_email(to, project_name, project_version, message, result):
     if to:
-        LOG.big_log_start("Start send email")
+        LOG.big_log_start("Report email")
         if result:
             subject = '[编译成功] ' + project_name + ' ' + project_version
         else:

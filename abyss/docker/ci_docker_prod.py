@@ -39,7 +39,7 @@ def progress(pipe, workplace, git_url, git_ref):
         new_env = os.environ.copy()
         new_env['pipe'] = pipe
 
-        version = re.sub('^v(?=\d+)', git_worker.TAG, '')
+        version = re.sub('^v(?=\d+)', '', git_worker.TAG)
         new_env['version'] = version
 
         commit = git_worker.get_commit()

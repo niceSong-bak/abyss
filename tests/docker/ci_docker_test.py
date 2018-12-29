@@ -29,7 +29,7 @@ class TestProd(unittest.TestCase):
             workplace=directory,
             git_url="git@gitee.com:floozy/springdemo.git",
             git_ref="refs/tags/v2.0.42",
-            pipe="docker_beta"
+            pipe="docker_prod"
         )
 
     def test_version(self):
@@ -42,9 +42,9 @@ class TestAws(unittest.TestCase):
     def test_tag(self):
         ci_docker_aws.progress(
             workplace=directory,
-            git_url="git@gitee.com:floozy/springdemo.git",
-            git_ref="refs/tags/v2.0.42",
-            pipe="docker_beta"
+            git_url="git@gitee.com:twisted06/TwistedCloudEureka.git",
+            git_ref="refs/tags/v1.0.12",
+            pipe="docker_aws"
         )
 
 
