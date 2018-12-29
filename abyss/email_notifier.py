@@ -16,29 +16,30 @@ password = 'x1Nbm6wx'
 encoding = 'utf-8'
 
 
-def send_email(to, project_name, project_version, message):
+def send_email(to, project_name, project_version, message, result):
     if to:
-        try:
-            LOG.big_log_start("Start send email")
+        LOG.big_log_start("Start send email")
+        if result:
+            subject = '[编译成功] ' + project_name + ' ' + project_version
+        else:
+            subject = '[编译失败] ' + project_name + ' ' + project_version
 
-            subject = project_name + ' ' + project_version + ' 编译完毕'
-            body = project_name + ' ' + project_version + ' 更新内容: ' + message + ' 正式环境编译完毕, 已上传到镜像仓库'
+        body = '更新内容: ' + message
 
-            mail = MIMEText(body.encode(encoding), 'plain', encoding)
-            mail['Subject'] = Header(subject, encoding)
-            mail['From'] = fromMail
-            mail['To'] = ', '.join(to)
-            mail['Date'] = formatdate()
+        mail = MIMEText(body.encode(encoding), 'plain', encoding)
+        mail['Subject'] = Header(subject, encoding)
+        mail['From'] = fromMail
+        mail['To'] = ', '.join(to)
+        mail['Date'] = formatdate()
 
-            smtp = smtplib.SMTP_SSL(smtpHost, sslPort)
-            smtp.ehlo()
-            smtp.login(username, password)
+        smtp = smtplib.SMTP_SSL(smtpHost, sslPort)
+        smtp.ehlo()
+        smtp.login(username, password)
 
-            # 发送邮件
-            smtp.sendmail(fromMail, to, mail.as_string())
-            smtp.close()
-            LOG.big_log_end("Send Successful")
-            return True
-        except Exception as e:
-            return False
-    return False
+        # 发送邮件
+        smtp.sendmail(fromMail, to, mail.as_string())
+        smtp.close()
+        LOG.big_log_end("Email Send Successful")
+    else:
+        LOG.big_log_end("No address to send email")
+    return True
