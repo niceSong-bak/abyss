@@ -49,7 +49,7 @@ def progress(pipe, workplace, git_url, git_ref):
         new_env['commitMessage'] = commit[3]
 
         # 真正的build  ================================================================================================
-        for command in abyss_config.build_beta():
+        for command in abyss_config.build_release():
             build_project = subprocess.call(LOG.debug(command), shell=True,
                                             cwd=file_manager.WORKSPACE_BUILD, env=new_env)
             if build_project != 0:
