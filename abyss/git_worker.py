@@ -56,12 +56,9 @@ class GitWorker:
                                              'utf-8').split('\n')[0])
         LOG.debug("Project path: " + self.PROJECT_PATH)
 
-        refs_paths = self.REF.split('/')
-        coPoint = refs_paths[2]
-
         # checkout
-        LOG.debug('git checkout {coPoint}'.format(coPoint=coPoint))
-        checkout = subprocess.call('git checkout {coPoint}'.format(coPoint=coPoint), shell=True, cwd=self.PROJECT_PATH)
+        LOG.debug('git checkout {coPoint}'.format(coPoint=self.TAG))
+        checkout = subprocess.call('git checkout {coPoint}'.format(coPoint=self.TAG), shell=True, cwd=self.PROJECT_PATH)
         if checkout != 0:
             LOG.error("git checkout failed")
             return False
