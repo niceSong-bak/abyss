@@ -24,7 +24,7 @@ class TestTag(unittest.TestCase):
 
 class TestPush(unittest.TestCase):
     def setUp(self):
-        self.git_worker = GitWorker(directory, "git@gitee.com:floozy/springdemo.git", "refs/heads/master")
+        self.git_worker = GitWorker(directory, "git@gitee.com:twisted06/twisted_management.git", "refs/heads/fix/risk_control")
 
     def test_pull(self):
         self.git_worker.pull_code()
