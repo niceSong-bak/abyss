@@ -21,9 +21,9 @@ class GitWorker:
             LOG.error("refs is invalid: " + ref)
 
         if refs_paths[1] == 'tags':
-            self.TAG = refs_paths[2]
+            self.TAG = ref.split('tags/')[1]
         elif refs_paths[1] == 'heads':
-            self.TAG = refs_paths[2]
+            self.TAG = ref.split('heads/')[1]
         else:
             LOG.error("unsupported ref: " + ref)
 

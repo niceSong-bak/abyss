@@ -16,8 +16,8 @@ class TestBeta(unittest.TestCase):
     def test_tag(self):
         ci_docker_beta.progress(
             workplace=directory,
-            git_url="git@gitee.com:floozy/springdemo.git",
-            git_ref="refs/heads/master",
+            git_url="git@gitee.com:twisted06/twisted_management.git",
+            git_ref="refs/heads/dev",
             pipe="docker_beta"
         )
 
