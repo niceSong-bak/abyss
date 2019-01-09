@@ -21,9 +21,11 @@ class GitWorker:
             LOG.error("refs is invalid: " + ref)
 
         if refs_paths[1] == 'tags':
-            self.TAG = ref.split('tags/')[1]
+            self.TAG = refs_paths[2]
+            self.BRANCH = ref.split('tags/')[1]
         elif refs_paths[1] == 'heads':
-            self.TAG = ref.split('heads/')[1]
+            self.TAG = refs_paths[2]
+            self.BRANCH = ref.split('heads/')[1]
         else:
             LOG.error("unsupported ref: " + ref)
 
@@ -57,8 +59,8 @@ class GitWorker:
         LOG.debug("Project path: " + self.PROJECT_PATH)
 
         # checkout
-        LOG.debug('git checkout {coPoint}'.format(coPoint=self.TAG))
-        checkout = subprocess.call('git checkout {coPoint}'.format(coPoint=self.TAG), shell=True, cwd=self.PROJECT_PATH)
+        LOG.debug('git checkout {coPoint}'.format(coPoint=self.BRANCH))
+        checkout = subprocess.call('git checkout {coPoint}'.format(coPoint=self.BRANCH), shell=True, cwd=self.PROJECT_PATH)
         if checkout != 0:
             LOG.error("git checkout failed")
             return False
@@ -93,7 +95,7 @@ class GitWorker:
         读当前的commit信息
         :return: (commit hash, timestamp, format time, commit message)
         """
-        commit = subprocess.check_output('git show --format="%h|#|%ct|#|%ci|#|%s" --quiet'.format(tag=self.TAG),
+        commit = subprocess.check_output('git show --format="%h|#|%ct|#|%ci|#|%s" --quiet'.format(tag=self.BRANCH),
                                          shell=True,
                                          cwd=self.PROJECT_PATH).decode('utf-8')
         commit_info = commit.split('|#|')

@@ -39,7 +39,7 @@ def progress(pipe, workplace, git_url, git_ref):
         new_env = os.environ.copy()
         new_env['pipe'] = pipe
 
-        version = re.sub('^v(?=\d+)', '', git_worker.TAG)
+        version = re.sub('^v(?=\d+)', '', git_worker.BRANCH)
         new_env['version'] = version
 
         commit = git_worker.get_commit()
@@ -81,7 +81,7 @@ def progress(pipe, workplace, git_url, git_ref):
         if not email_notifier.send_email(
                 to=abyss_config.email(),
                 project_name=abyss_config.image(),
-                project_version=git_worker.TAG,
+                project_version=git_worker.BRANCH,
                 message=git_worker.get_commit()[3],
                 result=True
         ):
@@ -95,7 +95,7 @@ def progress(pipe, workplace, git_url, git_ref):
             if not email_notifier.send_email(
                     to=abyss_config.email(),
                     project_name=abyss_config.image(),
-                    project_version=git_worker.TAG,
+                    project_version=git_worker.BRANCH,
                     message="Error: " + str(e),
                     result=False
             ):
