@@ -36,7 +36,9 @@ def progress(pipe, workplace, git_url, git_ref):
         abyss_config = ConfigParser(file_manager.WORKSPACE_BUILD)
 
         # 准备环境  ============================================================================================
-        new_env = os.environ.copy()
+        LOG.big_log_start("Start Build")
+
+        new_env = {}
         new_env['pipe'] = pipe
 
         version = re.sub('^v(?=\d+)', '', git_worker.BRANCH)
@@ -48,6 +50,11 @@ def progress(pipe, workplace, git_url, git_ref):
         new_env['commitTimeFormat'] = commit[2]
         new_env['commitMessage'] = commit[3]
 
+        for k in new_env:
+            LOG.debug("new_env[{key}] = {value}".format(key=k, value=new_env[k]))
+
+        new_env.update(os.environ.copy())
+
         # 真正的build  ============================================================================================
         for command in abyss_config.build_release():
             build_project = subprocess.call(LOG.debug(command), shell=True,
@@ -55,6 +62,7 @@ def progress(pipe, workplace, git_url, git_ref):
             if build_project != 0:
                 raise Exception("Project build failed")
 
+        LOG.big_log_end("Build Success")
         # 处理镜像  ============================================================================================
         docker_worker = DockerWorker(
             registry=AWS_DOCKER_REGISTRY,
