@@ -16,8 +16,8 @@ class TestBeta(unittest.TestCase):
     def test_tag(self):
         ci_docker_beta.progress(
             workplace=directory,
-            git_url="git@gitee.com:twisted06/twisted_management.git",
-            git_ref="refs/heads/fix/risk_control",
+            git_url="git@gitee.com:twisted06/TwistedFront-backend.git",
+            git_ref="refs/heads/develop",
             pipe="docker_beta"
         )
 

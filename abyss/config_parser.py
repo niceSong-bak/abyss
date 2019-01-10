@@ -27,8 +27,13 @@ class ConfigParser:
             if not os.path.exists(config_path):
                 LOG.error("abyss.yaml nofound")
 
-        f = open(config_path)
+        with open(config_path, 'r') as f:
+            for line in f.readlines():
+                LOG.debug(line.strip())
+
+        f = open(config_path, 'r')
         self.CONFIG = yaml.load(f)
+        f.close()
 
     def image(self):
         return self.CONFIG.get(CI_DEPLOY_IMAGE_NAME)
