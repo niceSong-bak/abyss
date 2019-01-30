@@ -83,6 +83,7 @@ def progress(pipe, workplace, git_url, git_ref):
         # 通知  ============================================================================================
         if not email_notifier.send_email(
                 to=abyss_config.email(),
+                pipe=pipe,
                 project_name=abyss_config.image(),
                 project_version=git_worker.BRANCH,
                 message=git_worker.get_commit()[3],
@@ -97,6 +98,7 @@ def progress(pipe, workplace, git_url, git_ref):
         if abyss_config is not None:
             if not email_notifier.send_email(
                     to=abyss_config.email(),
+                    pipe=pipe,
                     project_name=abyss_config.image(),
                     project_version=git_worker.BRANCH,
                     message="Error: " + str(e),
