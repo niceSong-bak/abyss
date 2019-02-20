@@ -14,7 +14,7 @@ class TestTag(unittest.TestCase):
 
     def test_email(self):
         email_notifier.send_email(
-                to='zhuchenxi@jinuo.me',
+                to=['zhuchenxi@jinuo.me'],
                 pipe='docker_prod',
                 project_name='twisted-manager-backend',
                 project_version='v1.2.4',

@@ -82,7 +82,7 @@ class GitWorker:
         os.mkdir(target)
         # copy
         cp = subprocess.call(LOG.debug(
-            'cp -a * ' + target),
+            'cp -a . ' + target),
             shell=True, cwd=self.PROJECT_PATH)
         if cp != 0:
             LOG.error("code copy failed")
