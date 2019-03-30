@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 import os
 import sys
-from abyss.docker import ci_docker_beta, ci_docker_prod, ci_docker_aws
+from abyss.docker import ci_docker_beta, ci_docker_prod, ci_docker_aws, ci_docker_ocean
 from abyss import logger as LOG
 
 __author__ = "Jude"
@@ -10,7 +10,8 @@ __author__ = "Jude"
 PIPES = {
     "docker_beta": ci_docker_beta,
     "docker_prod": ci_docker_prod,
-    "docker_aws": ci_docker_aws
+    "docker_aws": ci_docker_aws,
+    "docker_ocean": ci_docker_ocean,
 }
 
 if __name__ == "__main__":

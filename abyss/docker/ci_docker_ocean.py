@@ -13,8 +13,8 @@ from abyss import logger as LOG, email_notifier
 
 __author__ = "Jude"
 
-AWS_ENV_NAME = "twisted"
-AWS_DOCKER_REGISTRY = "402852579574.dkr.ecr.ap-southeast-1.amazonaws.com"
+AWS_ENV_NAME = "ocean"
+AWS_DOCKER_REGISTRY = "837040555638.dkr.ecr.ap-southeast-1.amazonaws.com"
 """
 新jenkins slaver机器需要安装配置 aws cli
 """
