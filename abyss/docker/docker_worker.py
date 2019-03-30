@@ -26,7 +26,12 @@ class DockerWorker:
         LOG.big_log_end('Login Success')
         return True
 
-    def login_aws(self):
+    def login_aws(self, name):
+        result = subprocess.call(LOG.debug(
+            "aws configure --profile {name} --region ap-southeast-1 --output json".format(name=name)), shell=True)
+        if result != 0:
+            LOG.error("configure failed")
+            return False
         result = subprocess.call(LOG.debug(
             "$(aws ecr get-login --no-include-email --region ap-southeast-1)"), shell=True)
         if result != 0:
