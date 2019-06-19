@@ -40,7 +40,7 @@ def progress(pipe, workplace, git_url, git_ref):
         new_env = {}
         new_env['pipe'] = pipe
         commit = git_worker.get_commit()
-        new_env['version'] = git_worker.BRANCH + "." + commit[0]
+        new_env['version'] = git_worker.BRANCH.replace("/", "-") + "-" + commit[0]
         new_env['commitId'] = commit[0]
         new_env['commitTime'] = commit[1]
         new_env['commitTimeFormat'] = commit[2]

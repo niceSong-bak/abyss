@@ -16,7 +16,7 @@ class TestBeta(unittest.TestCase):
     def test_tag(self):
         ci_docker_beta.progress(
             workplace=directory,
-            git_url="git@gitee.com:twisted06/twisted2_web.git",
+            git_url="git@gitee.com:jinuotech/Tristana-AdminFrontend.git",
             git_ref="refs/heads/fix/qiniu",
             pipe="docker_beta"
         )
@@ -27,9 +27,9 @@ class TestProd(unittest.TestCase):
     def test_tag(self):
         ci_docker_prod.progress(
             workplace=directory,
-            git_url="git@gitee.com:floozy/springdemo.git",
-            git_ref="refs/tags/v2.0.42",
-            pipe="docker_prod"
+            git_url="git@gitee.com:jinuotech/Tristana-AdminFrontend.git",
+            git_ref="refs/tags/v1.1.0",
+            pipe="docker_ocean"
         )
 
     def test_version(self):
