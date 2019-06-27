@@ -8,7 +8,7 @@ from abyss import logger as LOG
 __author__ = "Jude"
 
 CI_BUILD_COMMAND = "build"
-CI_BUILD_COMMAND_RELEASE = "release"
+CI_BUILD_COMMAND_RELEASE = "prod"
 CI_BUILD_COMMAND_BETA = "beta"
 CI_DEPLOY_IMAGE_NAME = "name"
 CI_DEPLOY_REPO_NAME = "repo"
