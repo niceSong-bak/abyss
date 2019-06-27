@@ -94,9 +94,9 @@ class TestAws(unittest.TestCase):
     def test_tag(self):
         CIDocker(
             workplace=directory,
-            git_url="git@gitee.com:twisted06/TwistedCloudEureka.git",
-            git_ref="refs/tags/v1.0.12",
-            pipe="docker_aws"
+            git_url="git://gitee.com/twisted06/Twisted-WatcherService.git",
+            git_ref="refs/tags/v1.2.4.4",
+            pipe="prod"
         ).ci_process()
 
 
