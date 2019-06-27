@@ -3,7 +3,7 @@
 # @Email : aaronlzxian@163.com
 # @File : config.py
 
-from .config_parser import CI_BUILD_COMMAND_BETA, CI_BUILD_COMMAND_RELEASE
+from .config_parser import CI_BUILD_COMMAND_RELEASE, CI_BUILD_COMMAND_BETA
 
 class Base():
     DOCKER_REGISTRY = "registry.cn-zhangjiakou.aliyuncs.com/floozy"
