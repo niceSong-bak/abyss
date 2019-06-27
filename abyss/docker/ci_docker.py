@@ -113,12 +113,14 @@ class CIDocker():
         return True
 
     def ci_process(self):
+        result = True
         try:
             self.pre_workplace()
             self.git_process()
             self.pre_env()
-            # self.docker_process()
+            self.docker_process()
+        except:
+            result = False
+        finally:
             self.notify()
-            return True
-        except Exception as e:
-            return False
+            return result
