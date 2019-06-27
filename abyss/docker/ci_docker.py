@@ -118,10 +118,14 @@ class CIDocker():
         else:
             raise Exception("Login docker repository failed")
 
+<<<<<<< HEAD
     def notify(self, result=True):
+=======
+    def notify(self, result):
+>>>>>>> send email
         # 通知  ================================================================================================
         if not hasattr(self, 'release'):
-            self.release = ''
+            self.release = "未知"
         if not email_notifier. send_email(
                 to=self.abyss_config.email(),
                 module='|'.join(self.short_module_names),
@@ -130,7 +134,11 @@ class CIDocker():
                 project_version=self.git_worker.BRANCH,
                 message=self.git_worker.get_commit()[3],
                 result=result,
+<<<<<<< HEAD
                 release=self.release or ''
+=======
+                release=self.release
+>>>>>>> send email
         ):
             raise Exception("send email failed")
         return True
