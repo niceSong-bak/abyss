@@ -120,7 +120,9 @@ class CIDocker():
 
     def notify(self, result=True):
         # 通知  ================================================================================================
-        if not email_notifier.send_email(
+        if not hasattr(self, 'release'):
+            self.release = ''
+        if not email_notifier. send_email(
                 to=self.abyss_config.email(),
                 module='|'.join(self.short_module_names),
                 pipe=self.pipe,
