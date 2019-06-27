@@ -31,7 +31,7 @@ class TestProd(unittest.TestCase):
             workplace=directory,
             git_url="git@gitee.com:floozy/springdemo.git",
             git_ref="refs/heads/devww",
-            pipe="release"
+            pipe="prod"
         ).ci_process():
             print("ssssss")
             sys.exit(1)

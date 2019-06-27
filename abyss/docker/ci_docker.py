@@ -100,10 +100,12 @@ class CIDocker():
 
     def notify(self):
         # 通知  ================================================================================================
+        if not hasattr(self, 'release'):
+            self.release = ''
         if not email_notifier. send_email(
                 to=self.abyss_config.email(),
                 pipe=self.pipe,
-                project_name=self.self.abyss_config.image(),
+                project_name=self.abyss_config.image(),
                 project_version=self.git_worker.BRANCH,
                 message=self.git_worker.get_commit()[3],
                 result=True,
