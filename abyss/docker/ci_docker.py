@@ -57,8 +57,8 @@ class CIDocker():
         for command in abyss_config.build():
             build_project = subprocess.call(LOG.debug(command), shell=True,
                                             cwd=self.file_manager.WORKSPACE_BUILD, env=self.new_env)
-            # if build_project != 0:
-            #     raise Exception("Project build failed")
+            if build_project != 0:
+                raise Exception("Project build failed")
 
         LOG.big_log_end("Build Success")
         self.release = abyss_config.deploy_release()
