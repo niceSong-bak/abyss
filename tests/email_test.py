@@ -20,7 +20,7 @@ class TestTag(unittest.TestCase):
                 project_version='v1.2.4',
                 message='互联网公司反腐继续劲吹',
                 result=True,
-                release='land'
+                release='land' or ''
         )
 
 

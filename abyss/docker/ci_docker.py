@@ -52,16 +52,16 @@ class CIDocker():
         self.new_env = new_env
 
     def docker_process(self):
-        abyss_config = ConfigParser(self.file_manager.WORKSPACE_BUILD, self.pipe)
+        self.abyss_config = ConfigParser(self.file_manager.WORKSPACE_BUILD, self.pipe)
         # 真正的build  ================================================================================================
-        for command in abyss_config.build():
+        for command in self.abyss_config.build():
             build_project = subprocess.call(LOG.debug(command), shell=True,
                                             cwd=self.file_manager.WORKSPACE_BUILD, env=self.new_env)
             if build_project != 0:
                 raise Exception("Project build failed")
 
         LOG.big_log_end("Build Success")
-        self.release = abyss_config.deploy_release()
+        self.release = self.abyss_config.deploy_release()
         if isinstance(config[self.pipe], dict):
             registry_config = config[self.pipe][self.release]
         else:
@@ -71,12 +71,12 @@ class CIDocker():
         # 处理镜像  ================================================================================================
         docker_worker = DockerWorker(
             registry=registry_config.DOCKER_REGISTRY,
-            image=abyss_config.image()
+            image=self.abyss_config.image()
         )
 
         self.login_docker_repository(docker_worker, registry_config)
 
-        repo_name = registry_config.DOCKER_REGISTRY + "/" + abyss_config.repo()
+        repo_name = registry_config.DOCKER_REGISTRY + "/" + self.abyss_config.repo()
 
         if not docker_worker.tag(repo_name, self.git_worker.TAG):
             raise Exception("tag failed")
@@ -100,14 +100,14 @@ class CIDocker():
 
     def notify(self):
         # 通知  ================================================================================================
-        if not email_notifier.send_email(
+        if not email_notifier. send_email(
                 to=self.abyss_config.email(),
                 pipe=self.pipe,
-                project_name=self.abyss_config.image(),
+                project_name=self.self.abyss_config.image(),
                 project_version=self.git_worker.BRANCH,
                 message=self.git_worker.get_commit()[3],
                 result=True,
-                release=self.release or ''
+                release=self.release
         ):
             raise Exception("send email failed")
         return True
@@ -117,7 +117,7 @@ class CIDocker():
             self.pre_workplace()
             self.git_process()
             self.pre_env()
-            self.docker_process()
+            # self.docker_process()
             self.notify()
             return True
         except Exception as e:
