@@ -43,7 +43,11 @@ if __name__ == "__main__":
         LOG.error("Missing git_ref")
         sys.exit(1)
 
+    LOG.debug(pipe)
+
     _pipe = transfer(pipe)
+
+    LOG.debug(_pipe)
 
     if not CIDocker(
         workplace=workplace,
