@@ -3,6 +3,7 @@
 import os
 import re
 import unittest
+import sys
 
 from abyss.docker.ci_docker import CIDocker
 
@@ -73,12 +74,15 @@ class TestBeta(unittest.TestCase):
 class TestProd(unittest.TestCase):
 
     def test_tag(self):
-        CIDocker(
+        if not CIDocker(
             workplace=directory,
             git_url="git@gitee.com:floozy/springdemo.git",
             git_ref="refs/heads/devww",
             pipe="release"
-        ).ci_process()
+        ).ci_process():
+            print("ssssss")
+            sys.exit(1)
+        print("ddddd")
 
     def test_version(self):
         version = re.sub('^v(?=\d+)', '', "v1.0.1")
