@@ -29,7 +29,7 @@ class Prod:
 config = {
     "beta": Beta.Land,
 
-    "release": {
+    "prod": {
         "land": Prod.Land,
         "ocean": Prod.Ocean,
         "twisted": Prod.Twisted,
