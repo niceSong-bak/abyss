@@ -126,7 +126,7 @@ class CIDocker():
                 to=self.abyss_config.email(),
                 module='|'.join(self.short_module_names),
                 pipe=self.pipe,
-                project_name=self.self.abyss_config.image(),
+                project_name=self.abyss_config.image(),
                 project_version=self.git_worker.BRANCH,
                 message=self.git_worker.get_commit()[3],
                 result=result,
