@@ -8,7 +8,7 @@ from abyss import logger as LOG, config_parser
 __author__ = "Jude"
 
 def transfer(pipe):
-    if pipe == "docker_prod" or pipe == "docker_aws" or pipe == "docker_ocean" or "release":
+    if pipe == "docker_prod" or pipe == "docker_aws" or pipe == "docker_ocean" or pipe == "release":
         return config_parser.CI_BUILD_COMMAND_RELEASE
     elif pipe == "docker_beta" or pipe == "beta" or pipe == "fucker":
         return config_parser.CI_BUILD_COMMAND_BETA
@@ -18,7 +18,6 @@ def transfer(pipe):
 
 
 if __name__ == "__main__":
-
     if "pipe" in os.environ:
         pipe = os.environ['pipe']
     else:
