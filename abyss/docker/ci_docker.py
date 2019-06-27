@@ -61,13 +61,12 @@ class CIDocker():
             #     raise Exception("Project build failed")
 
         LOG.big_log_end("Build Success")
-
+        self.release = abyss_config.deploy_release()
         if isinstance(config[self.pipe], dict):
-            self.release = abyss_config.deploy_release()
             registry_config = config[self.pipe][self.release]
-            LOG.debug("Deploy release: {release}".format(release=self.release))
         else:
             registry_config = config[self.pipe]
+        LOG.debug("Deploy release: {release}".format(release=self.release))
 
         # 处理镜像  ================================================================================================
         docker_worker = DockerWorker(
