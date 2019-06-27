@@ -43,13 +43,13 @@ if __name__ == "__main__":
         LOG.error("Missing git_ref")
         sys.exit(1)
 
-    pipe = transfer(pipe)
+    _pipe = transfer(pipe)
 
     if not CIDocker(
         workplace=workplace,
         git_url=git_url,
         git_ref=git_ref,
-        pipe=pipe
+        pipe=_pipe
     ).ci_process():
         LOG.big_log_start("Jenkins Job Failed!")
         sys.exit(1)
