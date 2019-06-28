@@ -130,7 +130,7 @@ class CIDocker():
                 project_version=self.git_worker.BRANCH,
                 message=self.git_worker.get_commit()[3],
                 result=result,
-                release=self.release
+                release=self.release or ''
         ):
             raise Exception("send email failed")
         return True
