@@ -21,7 +21,6 @@ class CIDocker():
         self.git_url = git_url
         self.git_ref = git_ref
         self.transfer_commits(commits)
-        self.short_module_names = []
 
     def transfer_commits(self, commits):
         self.commits = ModifyCommit.process_multiple_commits(commits)
@@ -59,7 +58,9 @@ class CIDocker():
         self.new_env = new_env
 
     def build_modules(self):
-        modules = ModuleParser(self.file_manager.WORKSPACE_BUILD).modify_modules(self.commits)
+        module_parser = ModuleParser(self.file_manager.WORKSPACE_BUILD)
+        modules = module_parser.modify_modules(self.commits)
+        self.short_module_names = module_parser.short_module_names
         for module in modules:
             self.docker_process(module)
 
@@ -68,7 +69,6 @@ class CIDocker():
             self.short_module_name = 'All'
         else:
             self.short_module_name = module.replace(self.file_manager.WORKSPACE_BUILD+'/', '')
-        self.short_module_names.append(self.short_module_name)
 
         LOG.big_log_start("[{m}] Start Build".format(m=self.short_module_name))
         self.abyss_config = ConfigParser(module, self.pipe)
