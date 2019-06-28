@@ -122,7 +122,7 @@ class CIDocker():
         # 通知  ================================================================================================
         if not hasattr(self, 'release'):
             self.release = "未知"
-        if not email_notifier. send_email(
+        if not email_notifier.send_email(
                 to=self.abyss_config.email(),
                 module='|'.join(self.short_module_names),
                 pipe=self.pipe,
@@ -142,7 +142,7 @@ class CIDocker():
             self.git_process()
             self.pre_env()
             self.build_modules()
-        except Exception as e:
+        except:
             result = False
         finally:
             self.notify(result)
