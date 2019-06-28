@@ -16,16 +16,17 @@ password = 'dsad4@IPPs998'
 encoding = 'utf-8'
 
 
-def send_email(to, pipe, project_name, project_version, message, result, release):
+def send_email(to, pipe, project_name, project_version, message, result, release, module):
     if to:
         LOG.big_log_start("Report email")
         result_str = "成功" if result else "失败"
         subject = "[{result}] {pipe} {release}".format(result=result_str,
                                              pipe=pipe, release=release)
 
-        body = "项目：{project_name} {project_version}  \n更新内容：{message}".format(project_name=project_name
+        body = "项目：{project_name} {project_version} 模块：{module}  \n更新内容：{message}".format(project_name=project_name
                                                                               , project_version=project_version
-                                                                              , message=message)
+                                                                              , message=message
+                                                                            , module=module)
 
         mail = MIMEText(body.encode(encoding), 'plain', encoding)
         mail['Subject'] = Header(subject, encoding)
