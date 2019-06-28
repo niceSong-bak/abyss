@@ -21,6 +21,7 @@ class CIDocker():
         self.git_url = git_url
         self.git_ref = git_ref
         self.transfer_commits(commits)
+        self.short_module_names = []
 
     def transfer_commits(self, commits):
         self.commits = ModifyCommit.process_multiple_commits(commits)
@@ -59,25 +60,24 @@ class CIDocker():
 
     def build_modules(self):
         modules = ModuleParser(self.file_manager.WORKSPACE_BUILD).modify_modules(self.commits)
-        self.short_module_names = []
         for module in modules:
             self.docker_process(module)
-            self.short_module_names.append(self.short_module_name)
 
     def docker_process(self, module):
         if module == self.file_manager.WORKSPACE_BUILD:
             self.short_module_name = 'All'
         else:
             self.short_module_name = module.replace(self.file_manager.WORKSPACE_BUILD+'/', '')
-        LOG.big_log_start("[{m}] Start Build".format(m=self.short_module_name))
+        self.short_module_names.append(self.short_module_name)
 
+        LOG.big_log_start("[{m}] Start Build".format(m=self.short_module_name))
         self.abyss_config = ConfigParser(module, self.pipe)
         # 真正的build  ================================================================================================
         for command in self.abyss_config.build():
             build_project = subprocess.call(LOG.debug(command), shell=True,
                                             cwd=self.file_manager.WORKSPACE_BUILD, env=self.new_env)
-            # if build_project != 0:
-            #     raise Exception("[{m}] Module build failed".format(m=self.short_module_name))
+            if build_project != 0:
+                raise Exception("[{m}] Module build failed".format(m=self.short_module_name))
 
         LOG.big_log_end("[{m}] Build Module Success".format(m=self.short_module_name))
         self.release = self.abyss_config.deploy_release()
