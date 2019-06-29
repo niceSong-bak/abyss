@@ -64,8 +64,9 @@ class TestBeta(unittest.TestCase):
         CIDocker(
             workplace=directory,
             # git_url="git@gitee.com:jinuotech/Tristana-AdminFrontend.git",
-            git_url="git@gitee.com:floozy/springdemo.git",
-            git_ref="refs/heads/devww",
+            # git_url="git@gitee.com:floozy/springdemo.git",
+            git_url="https://gitee.com/jinuotech/Paymire.git",
+            git_ref="refs/heads/dev",
             pipe="beta",
             commits=commit_json
         ).ci_process()
