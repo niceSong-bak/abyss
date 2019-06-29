@@ -18,6 +18,13 @@ class ModuleParser:
     def modify_modules(self, commits):
         LOG.big_log_start("Start parser module")
         result = set()
+
+        #创建新分支
+        if len(commits) < 1:
+            self.short_module_names.append('All')
+            result.add(self.project_path)
+            return result
+
         modules = set()
         for path, dirs, file_names in self.g:
             #根目录全局打包
