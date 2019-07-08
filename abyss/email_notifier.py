@@ -2,7 +2,6 @@
 # -*- coding:utf-8 -*-
 # Author:Jude
 import smtplib
-import string
 from email.mime.text import MIMEText
 from email.utils import formatdate
 from email.header import Header
@@ -17,12 +16,12 @@ password = 'dsad4@IPPs998'
 encoding = 'utf-8'
 
 
-def send_email(to, pipe, project_name, project_version, message, result):
+def send_email(to, pipe, project_name, project_version, message, result, release):
     if to:
         LOG.big_log_start("Report email")
         result_str = "成功" if result else "失败"
-        subject = "[{result}] {pipe}".format(result=result_str,
-                                             pipe=pipe)
+        subject = "[{result}] {pipe} {release}".format(result=result_str,
+                                             pipe=pipe, release=release)
 
         body = "项目：{project_name} {project_version}  \n更新内容：{message}".format(project_name=project_name
                                                                               , project_version=project_version
