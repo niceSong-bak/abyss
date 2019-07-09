@@ -4,6 +4,7 @@
 # @File : ci_docker.py
 import os
 import subprocess
+import traceback
 
 from abyss.config_parser import ConfigParser
 from abyss.docker.docker_worker import DockerWorker
@@ -58,6 +59,8 @@ class CIDocker():
             build_project = subprocess.call(LOG.debug(command), shell=True,
                                             cwd=self.file_manager.WORKSPACE_BUILD, env=self.new_env)
             if build_project != 0:
+                LOG.big_log_start('Project build failed')
+                LOG.error('execution ['+command+'] is error')
                 raise Exception("Project build failed")
 
         LOG.big_log_end("Build Success")
@@ -121,7 +124,9 @@ class CIDocker():
             self.git_process()
             self.pre_env()
             self.docker_process()
-        except:
+        except Exception as e:
+            LOG.big_log_end("Build Error")
+            LOG.error(traceback.format_exc())
             result = False
         finally:
             self.notify(result)
