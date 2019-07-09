@@ -58,6 +58,7 @@ class CIDocker():
             build_project = subprocess.call(LOG.debug(command), shell=True,
                                             cwd=self.file_manager.WORKSPACE_BUILD, env=self.new_env)
             if build_project != 0:
+                LOG.error('execution ['+command+'] is error')
                 raise Exception("Project build failed")
 
         LOG.big_log_end("Build Success")
@@ -115,6 +116,7 @@ class CIDocker():
         return True
 
     def ci_process(self):
+        LOG.big_log_start('Execution [' + "dsds" + '] is error')
         result = True
         try:
             self.pre_workplace()

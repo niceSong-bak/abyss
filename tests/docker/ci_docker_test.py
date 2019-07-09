@@ -19,8 +19,9 @@ class TestBeta(unittest.TestCase):
             workplace=directory,
             # git_url="git@gitee.com:jinuotech/Tristana-AdminFrontend.git",
             # git_url="git@gitee.com:floozy/springdemo.git",
-            git_url="https://gitee.com/jinuotech/Paymire.git",
-            git_ref="refs/heads/dev",
+            # git_url="https://gitee.com/jinuotech/Paymire.git",
+            git_url="https://gitee.com/twisted06/twisted2_web.git",
+            git_ref="refs/tags/v1.2.6.3",
             pipe="beta"
         ).ci_process()
 
