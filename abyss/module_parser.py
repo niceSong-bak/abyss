@@ -19,7 +19,8 @@ class ModuleParser:
         result = set()
 
         #创建新分支
-        if len(commits) < 1:
+        if commits is None or len(commits) < 1:
+            LOG.debug(self.project_path)
             result.add(self.project_path)
             return result
 

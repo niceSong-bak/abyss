@@ -21,7 +21,10 @@ class CIDocker():
         self.workplace = workplace
         self.git_url = git_url
         self.git_ref = git_ref
-        self.transfer_commits(commits)
+        if commits is not None:
+            self.transfer_commits(commits)
+        else:
+            self.commits = commits
 
     def transfer_commits(self, commits):
         self.commits = ModifyCommit.process_multiple_commits(commits)
