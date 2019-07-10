@@ -26,7 +26,6 @@ class ModuleParser:
 
         self.modules = set()
         for path, dirs, file_names in self.g:
-            print(path, dirs, file_names)
             #根目录全局打包
 
 
