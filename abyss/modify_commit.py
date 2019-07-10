@@ -10,7 +10,8 @@ class ModifyCommit:
         self.author = commit['author']
         self.name = self.author['name']
         self.email = self.author['email']
-        self.remark = self.author['remark']
+        if 'remark' in self.author:
+            self.remark = self.author['remark']
         self.modify_file()
 
     def modify_file(self):
