@@ -40,11 +40,11 @@ class ModuleParser:
 
         for commit in commits:
             module_path = self.match_module(commit)
+            LOG.debug(module_path)
             if module_path == self.project_path:
                 result.add(module_path)
                 return result
             if module_path not in result:
-                LOG.debug(module_path)
                 result.add(module_path)
         return result
 
