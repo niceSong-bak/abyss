@@ -143,7 +143,7 @@ class CIDocker():
             self.git_process()
             self.pre_env()
             self.build_modules()
-        except:
+        except Exception as e:
             LOG.big_log_end("Build Error")
             LOG.error(traceback.format_exc())
             result = False

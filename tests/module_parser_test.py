@@ -17,5 +17,5 @@ class ModuleParserTest(unittest.TestCase):
 
     def test_modify_modules(self):
         # self.modules = self.module_parser.modify_modules(["y/build.gradle", 'x/build.gradle', 'z/src/main'])
-        self.modules = self.module_parser.modify_modules(["y/build.gradle", 'x/build.gradle', 'build.gradle', 'z/src/main'])
+        self.modules = self.module_parser.modify_modules(["src/views/pay/payOnline.vue", 'src/assets/css/index.css'])
         print(self.modules)

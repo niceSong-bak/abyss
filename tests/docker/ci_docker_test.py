@@ -14,44 +14,33 @@ if not os.path.exists(directory):
 commit_json = '''
 [
         {
-            "id":"db116c3ca946dd8d6fb4c4feeec7a88d4be8f835",
-            "tree_id":"ee0d719f43001da96972f98f366dab172ef794b2",
+            "id":"eda79f4d6555225f1614721e17b88b527b6746ca",
+            "tree_id":"e951498f7ae1202bad095221ce7be025ae146f44",
             "parent_ids":[
-                "9d3508a0d702514cebdf550e0f54e7752027adea"
+                "75c9fc5b809bf524e0b49b8770dc60f634638a0c"
             ],
-            "message":"dd",
-            "timestamp":"2019-06-28T11:33:45+08:00",
-            "url":"https://gitee.com/floozy/springdemo/commit/db116c3ca946dd8d6fb4c4feeec7a88d4be8f835",
+            "message":"style fix",
+            "timestamp":"2019-07-10T10:02:28+08:00",
+            "url":"https://gitee.com/twisted06/twisted2_web/commit/eda79f4d6555225f1614721e17b88b527b6746ca",
             "author":{
-                "time":"2019-06-28T11:33:45+08:00",
-                "id":1410931,
-                "name":"nosir",
-                "email":"aaronlzxian@163.com",
-                "username":"nosir",
-                "user_name":"nosir",
-                "url":"https://gitee.com/nosir",
-                "remark":"刘仲贤"
+                "time":"2019-07-10T10:02:28+08:00",
+                "name":"604801215@qq.com",
+                "email":"qwer1234"
             },
             "committer":{
-                "id":1410931,
-                "name":"nosir",
-                "email":"aaronlzxian@163.com",
-                "username":"nosir",
-                "user_name":"nosir",
-                "url":"https://gitee.com/nosir",
-                "remark":"刘仲贤"
+                "name":"604801215@qq.com",
+                "email":"qwer1234"
             },
             "distinct":true,
             "added":[
-                "z/src/main",
-                "x/src/main"
+
             ],
             "removed":[
-                "y/build.gradle",
-                "x/build.gradle"
+
             ],
             "modified":[
-                "z/build.gradle"
+                "src/assets/css/index.css",
+                "src/views/pay/payOnline.vue"
             ]
         }
     ]
@@ -63,9 +52,7 @@ class TestBeta(unittest.TestCase):
     def test_tag(self):
         CIDocker(
             workplace=directory,
-            # git_url="git@gitee.com:jinuotech/Tristana-AdminFrontend.git",
-            # git_url="git@gitee.com:floozy/springdemo.git",
-            git_url="https://gitee.com/jinuotech/Paymire.git",
+            git_url="https://gitee.com/twisted06/twisted2_web.git",
             git_ref="refs/heads/dev",
             pipe="beta",
             commits=commit_json
