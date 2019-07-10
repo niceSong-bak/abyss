@@ -101,3 +101,13 @@ class GitWorker:
         commit_info = commit.split('|#|')
         # (commit hash, timestamp, format time, commit message)
         return commit_info[0], commit_info[1], commit_info[2], commit_info[3]
+
+    def get_commit_recent_diff_file(self):
+        '''
+        读取最新提交的修改文件路径
+        :return: list<string>
+        '''
+        commit = subprocess.check_output('git diff --name-only HEAD~ HEAD', shell=True, cwd=self.PROJECT_PATH).decode('utf-8')
+        commit_info = commit.trim().split('\n')
+        return commit_info
+

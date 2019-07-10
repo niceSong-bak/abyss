@@ -24,7 +24,7 @@ class ConfigParser:
             config_path = os.path.join(project_path, "abyss.yml")
             LOG.debug("find abyss.yml in " + config_path)
             if not os.path.exists(config_path):
-                LOG.error("abyss.yaml nofound")
+                LOG.error("abyss.yaml nonfound")
 
         with open(config_path, 'r') as f:
             for line in f.readlines():
