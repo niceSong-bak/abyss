@@ -29,14 +29,6 @@ def transfer(git_ref):
 
 
 if __name__ == "__main__":
-    if "commits" in os.environ:
-        commits = os.environ['commits']
-        if len(commits) < 1:
-            LOG.error("Missing commits")
-            sys.exit(1)
-    else:
-        LOG.error("Missing commits")
-        sys.exit(1)
 
     if "WORKSPACE" in os.environ:
         workplace = os.environ['WORKSPACE']
