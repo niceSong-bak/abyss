@@ -53,7 +53,7 @@ class TestBeta(unittest.TestCase):
         CIDocker(
             workplace=directory,
             git_url="https://gitee.com/twisted06/SteamBridge.git",
-            git_ref="refs/tags/v1.0.4",
+            git_ref="refs/tags/v1.0.5.1",
             pipe="prod",
             commits=None
         ).ci_process()

@@ -36,7 +36,7 @@ class DockerWorker:
         return True
 
     def tag(self, repo, tag):
-        LOG.big_log_start('[{m}] Start TAG Docker Image'.format(self.module_name))
+        LOG.big_log_start('[{m}] Start TAG Docker Image'.format(m=self.module_name))
 
         imageID = \
             subprocess.check_output(LOG.debug('docker images -q {image}'.format(image=self.IMAGE)),
