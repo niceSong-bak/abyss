@@ -77,11 +77,11 @@ class CIDocker():
         LOG.big_log_start("[{m}] Start Build".format(m=short_module_name))
         self.abyss_config = ConfigParser(module, self.pipe)
         # 真正的build  ================================================================================================
-        # for command in self.abyss_config.build():
-        #     build_project = subprocess.call(LOG.debug(command), shell=True,
-        #                                     cwd=self.file_manager.WORKSPACE_BUILD, env=self.new_env)
-        #     if build_project != 0:
-        #         raise Exception("[{m}] Module build failed".format(m=short_module_name))
+        for command in self.abyss_config.build():
+            build_project = subprocess.call(LOG.debug(command), shell=True,
+                                            cwd=self.file_manager.WORKSPACE_BUILD, env=self.new_env)
+            if build_project != 0:
+                raise Exception("[{m}] Module build failed".format(m=short_module_name))
 
         LOG.big_log_end("[{m}] Build Module Success".format(m=short_module_name))
         self.release = self.abyss_config.deploy_release()
