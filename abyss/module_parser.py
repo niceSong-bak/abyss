@@ -7,7 +7,6 @@ import re
 from abyss import logger as LOG
 
 ABYSSYAML = 'abyss.yaml'
-pattern = re.compile('^(\d|\w+)?/')
 
 class ModuleParser:
     def __init__(self, project_path):
