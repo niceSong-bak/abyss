@@ -11,18 +11,51 @@ directory = os.path.join(os.path.dirname(os.path.abspath(__file__)) + os.path.se
 if not os.path.exists(directory):
     os.makedirs(directory)
 
+commit_json = '''
+[
+        {
+            "id":"eda79f4d6555225f1614721e17b88b527b6746ca",
+            "tree_id":"e951498f7ae1202bad095221ce7be025ae146f44",
+            "parent_ids":[
+                "75c9fc5b809bf524e0b49b8770dc60f634638a0c"
+            ],
+            "message":"style fix",
+            "timestamp":"2019-07-10T10:02:28+08:00",
+            "url":"https://gitee.com/twisted06/twisted2_web/commit/eda79f4d6555225f1614721e17b88b527b6746ca",
+            "author":{
+                "time":"2019-07-10T10:02:28+08:00",
+                "name":"604801215@qq.com",
+                "email":"qwer1234"
+            },
+            "committer":{
+                "name":"604801215@qq.com",
+                "email":"qwer1234"
+            },
+            "distinct":true,
+            "added":[
+
+            ],
+            "removed":[
+
+            ],
+            "modified":[
+                "src/assets/css/index.css",
+                "src/views/pay/payOnline.vue"
+            ]
+        }
+    ]
+'''
+
 
 class TestBeta(unittest.TestCase):
 
     def test_tag(self):
         CIDocker(
             workplace=directory,
-            # git_url="git@gitee.com:jinuotech/Tristana-AdminFrontend.git",
-            # git_url="git@gitee.com:floozy/springdemo.git",
-            # git_url="https://gitee.com/jinuotech/Paymire.git",
-            git_url="https://gitee.com/twisted06/twisted2_web.git",
-            git_ref="refs/tags/v1.2.6.3",
-            pipe="beta"
+            git_url="https://gitee.com/twisted06/SteamBridge.git",
+            git_ref="refs/tags/v1.0.5.1",
+            pipe="prod",
+            commits=None
         ).ci_process()
 
 

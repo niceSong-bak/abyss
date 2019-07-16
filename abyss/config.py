@@ -3,7 +3,7 @@
 # @Email : aaronlzxian@163.com
 # @File : config.py
 
-from .config_parser import CI_BUILD_COMMAND_RELEASE, CI_BUILD_COMMAND_BETA
+from .config_parser import CI_BUILD_COMMAND_BETA, CI_BUILD_COMMAND_RELEASE
 
 class Base():
     DOCKER_REGISTRY = "registry.cn-zhangjiakou.aliyuncs.com/floozy"
@@ -29,7 +29,7 @@ class Prod:
         DOCKER_REGISTRY = "402852579574.dkr.ecr.ap-southeast-1.amazonaws.com"
 
 config = {
-    CI_BUILD_COMMAND_BETA : Beta.Land,
+    CI_BUILD_COMMAND_BETA: Beta.Land,
 
     CI_BUILD_COMMAND_RELEASE: {
         "land": Prod.Land,

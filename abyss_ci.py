@@ -29,6 +29,11 @@ def transfer(git_ref):
 
 
 if __name__ == "__main__":
+    if "commits" in os.environ:
+        commits = os.environ['commits']
+    else:
+        commits = None
+
     if "WORKSPACE" in os.environ:
         workplace = os.environ['WORKSPACE']
     else:
@@ -54,7 +59,8 @@ if __name__ == "__main__":
         workplace=workplace,
         git_url=git_url,
         git_ref=git_ref,
-        pipe=pipe
+        pipe=pipe,
+        commits=commits
     ).ci_process():
         LOG.big_log_start("Jenkins Job Failed!")
         sys.exit(1)

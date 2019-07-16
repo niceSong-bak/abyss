@@ -12,7 +12,7 @@ if not os.path.exists(directory):
 
 class TestTag(unittest.TestCase):
     def setUp(self):
-        self.git_worker = GitWorker(directory, "git@gitee.com:floozy/springdemo.git", "refs/tags/v2.0.42")
+        self.git_worker = GitWorker(directory, "git@gitee.com:floozy/springdemo.git", "refs/tags/v2.1.16")
 
     def test_pull(self):
         self.git_worker.pull_code()
@@ -20,11 +20,15 @@ class TestTag(unittest.TestCase):
     def test_read_commit(self):
         self.git_worker.pull_code()
         print(self.git_worker.get_commit())
+
+    def test_get_commit_recent_diff_file(self):
+        self.git_worker.pull_code()
+        print(self.git_worker.get_commit_recent_diff_file())
 
 
 class TestPush(unittest.TestCase):
     def setUp(self):
-        self.git_worker = GitWorker(directory, "git@gitee.com:twisted06/twisted_management.git", "refs/heads/fix/risk_control")
+        self.git_worker = GitWorker(directory, "git@gitee.com:floozy/springdemo.git", "refs/heads/devww")
 
     def test_pull(self):
         self.git_worker.pull_code()
@@ -32,6 +36,10 @@ class TestPush(unittest.TestCase):
     def test_read_commit(self):
         self.git_worker.pull_code()
         print(self.git_worker.get_commit())
+
+    def test_get_commit_recent_diff_file(self):
+        self.git_worker.pull_code()
+        print(self.git_worker.get_commit_recent_diff_file())
 
 
 if __name__ == "__main__":
