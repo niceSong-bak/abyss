@@ -150,5 +150,6 @@ class CIDocker():
             LOG.error(traceback.format_exc())
             result = False
         finally:
-            self.notify(result)
+            if hasattr(self, 'abyss_config'):
+                self.notify(result)
             return result
