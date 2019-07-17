@@ -52,9 +52,9 @@ class TestBeta(unittest.TestCase):
     def test_tag(self):
         CIDocker(
             workplace=directory,
-            git_url="https://gitee.com/twisted06/SteamBridge.git",
-            git_ref="refs/tags/v1.0.5.1",
-            pipe="prod",
+            git_url="https://gitee.com/twisted06/TwistedFront-backend.git",
+            git_ref="refs/heads/dev/pay",
+            pipe="dev",
             commits=None
         ).ci_process()
 
