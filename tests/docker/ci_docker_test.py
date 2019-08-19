@@ -14,33 +14,41 @@ if not os.path.exists(directory):
 commit_json = '''
 [
         {
-            "id":"eda79f4d6555225f1614721e17b88b527b6746ca",
-            "tree_id":"e951498f7ae1202bad095221ce7be025ae146f44",
+            "id":"7821c068153c4b77683490c40032d453fd80f248",
+            "tree_id":"b0eada149d9637ceb719669fd0c74ec7c8840000",
             "parent_ids":[
-                "75c9fc5b809bf524e0b49b8770dc60f634638a0c"
+                "29e665adf1dee649cdbfdd979033af2826033233"
             ],
-            "message":"style fix",
-            "timestamp":"2019-07-10T10:02:28+08:00",
-            "url":"https://gitee.com/twisted06/twisted2_web/commit/eda79f4d6555225f1614721e17b88b527b6746ca",
+            "message":"子目录abyss",
+            "timestamp":"2019-08-19T14:56:06+08:00",
+            "url":"https://gitee.com/jinuoimf/Gaia/commit/7821c068153c4b77683490c40032d453fd80f248",
             "author":{
-                "time":"2019-07-10T10:02:28+08:00",
-                "name":"604801215@qq.com",
-                "email":"qwer1234"
+                "time":"2019-08-19T14:56:06+08:00",
+                "id":1410931,
+                "name":"nosir",
+                "email":"aaronlzxian@163.com",
+                "username":"nosir",
+                "user_name":"nosir",
+                "url":"https://gitee.com/nosir",
+                "remark":"刘仲贤"
             },
             "committer":{
-                "name":"604801215@qq.com",
-                "email":"qwer1234"
+                "id":1410931,
+                "name":"nosir",
+                "email":"aaronlzxian@163.com",
+                "username":"nosir",
+                "user_name":"nosir",
+                "url":"https://gitee.com/nosir",
+                "remark":"刘仲贤"
             },
             "distinct":true,
             "added":[
-
+                "gaia-admin/abyss.yaml"
             ],
             "removed":[
-
             ],
             "modified":[
-                "src/assets/css/index.css",
-                "src/views/pay/payOnline.vue"
+                "gaia-upms/src/main/kotlin/me/jinuo/imf/gaia/upms/controller/IndexController.kt"
             ]
         }
     ]
@@ -52,10 +60,10 @@ class TestBeta(unittest.TestCase):
     def test_tag(self):
         CIDocker(
             workplace=directory,
-            git_url="https://gitee.com/twisted06/TwistedFront-backend.git",
-            git_ref="refs/heads/dev/pay",
-            pipe="dev",
-            commits=None
+            git_url="https://gitee.com/jinuoimf/Gaia.git",
+            git_ref="refs/heads/dev",
+            pipe="beta",
+            commits=commit_json
         ).ci_process()
 
 
