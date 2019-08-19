@@ -43,12 +43,11 @@ commit_json = '''
             },
             "distinct":true,
             "added":[
-                "gaia-admin/abyss.yaml"
+                "gradlew"
             ],
             "removed":[
             ],
             "modified":[
-                "gaia-upms/src/main/kotlin/me/jinuo/imf/gaia/upms/controller/IndexController.kt"
             ]
         }
     ]
