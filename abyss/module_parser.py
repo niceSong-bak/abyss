@@ -27,14 +27,12 @@ class ModuleParser:
         self.modules = set()
         for path, dirs, file_names in self.g:
             #根目录全局打包
-
-
-            if self.project_path == path:
-                for file_name in file_names:
-                    if file_name in commits:
-                        LOG.debug(path)
-                        result.add(path)
-                        return result
+            # if self.project_path == path:
+            #     for file_name in file_names:
+            #         if file_name in commits:
+            #             LOG.debug(path)
+            #             result.add(path)
+            #             return result
             if ABYSSYAML in file_names and path not in self.modules:
                 self.modules.add(path)
 
@@ -42,8 +40,8 @@ class ModuleParser:
             module_path = self.match_module(commit)
             LOG.debug(module_path)
             if module_path == self.project_path:
-                result.add(module_path)
-                return result
+                #如果是依赖模块就打包全部模块
+                return self.modules
             if module_path not in result:
                 result.add(module_path)
         return result
