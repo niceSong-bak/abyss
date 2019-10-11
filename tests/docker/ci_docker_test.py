@@ -49,7 +49,7 @@ commit_json = '''
 
             ],
             "modified":[
-                "build.gradle"
+                "gangplank-gateway/build.gradle"
             ]
         }
     ]
