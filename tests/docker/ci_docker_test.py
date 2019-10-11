@@ -49,7 +49,7 @@ commit_json = '''
 
             ],
             "modified":[
-                "/gangplank-gateway/abyss.yaml"
+                "build.gradle"
             ]
         }
     ]
