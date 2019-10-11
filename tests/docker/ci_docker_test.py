@@ -14,18 +14,18 @@ if not os.path.exists(directory):
 commit_json = '''
 [
         {
-            "id":"7821c068153c4b77683490c40032d453fd80f248",
-            "tree_id":"b0eada149d9637ceb719669fd0c74ec7c8840000",
+            "id":"67dbff5d38ea31c1de6abf0928dd1c8926bedd30",
+            "tree_id":"7c2556e2d0aec5ca10db75f304551f490b49d84c",
             "parent_ids":[
-                "29e665adf1dee649cdbfdd979033af2826033233"
+                "feb1b8ec83084953612955e66800b5b2897e0968"
             ],
-            "message":"子目录abyss",
-            "timestamp":"2019-08-19T14:56:06+08:00",
-            "url":"https://gitee.com/jinuoimf/Gaia/commit/7821c068153c4b77683490c40032d453fd80f248",
+            "message":"妮玛为啥子不得行呢",
+            "timestamp":"2019-08-23T15:09:58+08:00",
+            "url":"https://gitee.com/jinuoimf/ProxyPool/commit/67dbff5d38ea31c1de6abf0928dd1c8926bedd30",
             "author":{
-                "time":"2019-08-19T14:56:06+08:00",
+                "time":"2019-08-23T15:09:58+08:00",
                 "id":1410931,
-                "name":"nosir",
+                "name":"aaron",
                 "email":"aaronlzxian@163.com",
                 "username":"nosir",
                 "user_name":"nosir",
@@ -34,7 +34,7 @@ commit_json = '''
             },
             "committer":{
                 "id":1410931,
-                "name":"nosir",
+                "name":"aaron",
                 "email":"aaronlzxian@163.com",
                 "username":"nosir",
                 "user_name":"nosir",
@@ -43,11 +43,13 @@ commit_json = '''
             },
             "distinct":true,
             "added":[
-                "gradlew"
+
             ],
             "removed":[
+
             ],
             "modified":[
+                "/gangplank-gateway/abyss.yaml"
             ]
         }
     ]
@@ -59,7 +61,7 @@ class TestBeta(unittest.TestCase):
     def test_tag(self):
         CIDocker(
             workplace=directory,
-            git_url="https://gitee.com/jinuoimf/Gaia.git",
+            git_url="git@gitee.com:jinuotech/gangplank-service.git",
             git_ref="refs/heads/dev",
             pipe="beta",
             commits=commit_json
