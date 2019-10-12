@@ -7,6 +7,7 @@ import re
 from abyss import logger as LOG
 
 ABYSSYAML = 'abyss.yaml'
+ABYSSYML = 'abyss.yml'
 
 class ModuleParser:
     def __init__(self, project_path):
@@ -33,12 +34,12 @@ class ModuleParser:
             #             LOG.debug(path)
             #             result.add(path)
             #             return result
-            if ABYSSYAML in file_names and path not in self.modules:
+            if (ABYSSYAML in file_names or ABYSSYML in file_names) and path not in self.modules:
+                LOG.debug(path)
                 self.modules.add(path)
 
         for commit in commits:
             module_path = self.match_module(commit)
-            LOG.debug(module_path)
             if module_path == self.project_path:
                 #如果是依赖模块就打包全部模块
                 return self.modules
