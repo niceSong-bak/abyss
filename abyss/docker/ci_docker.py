@@ -47,6 +47,8 @@ class CIDocker():
 
         new_env = {}
         new_env['env'] = self.pipe
+        new_env['pipe'] = self.pipe
+        new_env['pipe'] = self.pipe
         commit = self.git_worker.get_commit()
         new_env['version'] = self.git_worker.BRANCH.replace("/", "-") + "-" + commit[0]
         new_env['commitId'] = commit[0]

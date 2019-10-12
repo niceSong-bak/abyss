@@ -49,7 +49,7 @@ commit_json = '''
 
             ],
             "modified":[
-                "gangplank-gateway/build.gradle"
+                "src/main.js"
             ]
         }
     ]
@@ -61,7 +61,7 @@ class TestBeta(unittest.TestCase):
     def test_tag(self):
         CIDocker(
             workplace=directory,
-            git_url="git@gitee.com:jinuotech/gangplank-service.git",
+            git_url="git@gitee.com:jinuotech/igc-mainsite-frontend.git",
             git_ref="refs/heads/dev",
             pipe="beta",
             commits=commit_json
