@@ -54,7 +54,7 @@ if __name__ == "__main__":
     pipe = transfer(git_ref)
 
     LOG.debug(pipe)
-
+    # pipe 即是 beta/prod
     if not CIDocker(
         workplace=workplace,
         git_url=git_url,

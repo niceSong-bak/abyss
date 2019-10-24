@@ -88,6 +88,7 @@ class CIDocker():
         LOG.big_log_end("[{m}] Build Module Success".format(m=short_module_name))
         self.release = self.abyss_config.deploy_release()
         if isinstance(config[self.pipe], dict):
+            # registry_config为 config.py 中各类。
             registry_config = config[self.pipe][self.release]
         else:
             registry_config = config[self.pipe]
@@ -117,9 +118,7 @@ class CIDocker():
             raise Exception("[{m}] push latest failed".format(m=short_module_name))
 
     def login_docker_repository(self, docker_worker, registry_config):
-        if hasattr(registry_config, 'DOCKER_ACCOUNT') and hasattr(registry_config, 'DOCKER_PASSWORD'):
-            docker_worker.login(registry_config.DOCKER_ACCOUNT, registry_config.DOCKER_PASSWORD)
-        elif hasattr(registry_config, 'NAME'):
+        if hasattr(registry_config, 'NAME'):
             docker_worker.login_aws(registry_config.NAME)
         else:
             raise Exception("Login docker repository failed")

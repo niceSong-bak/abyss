@@ -6,36 +6,15 @@
 from .config_parser import CI_BUILD_COMMAND_BETA, CI_BUILD_COMMAND_RELEASE
 
 class Base():
-    DOCKER_REGISTRY = "registry.cn-zhangjiakou.aliyuncs.com/floozy"
+    DOCKER_REGISTRY = "082924159698.dkr.ecr.ap-northeast-1.amazonaws.com/orion"
 
 class Beta:
-    class Land(Base):
-        DOCKER_REGISTRY = "registry.cn-zhangjiakou.aliyuncs.com/plantation"
-        DOCKER_ACCOUNT = "季诺科技"
-        DOCKER_PASSWORD = "H32Npgzl"
-
-class Prod:
-    class Land(Base):
-        DOCKER_REGISTRY = "registry.cn-zhangjiakou.aliyuncs.com/floozy"
-        DOCKER_ACCOUNT = "季诺科技"
-        DOCKER_PASSWORD = "H32Npgzl"
-
-    class Ocean(Base):
-        NAME = "ocean"
-        DOCKER_REGISTRY = "837040555638.dkr.ecr.ap-southeast-1.amazonaws.com"
-
-    class Twisted(Base):
-        NAME = "twisted"
-        DOCKER_REGISTRY = "402852579574.dkr.ecr.ap-southeast-1.amazonaws.com"
+    class Orion(Base):
+        NAME = "orion"
+        DOCKER_REGISTRY = "082924159698.dkr.ecr.ap-northeast-1.amazonaws.com"
 
 config = {
     CI_BUILD_COMMAND_BETA: Beta.Land,
-
-    CI_BUILD_COMMAND_RELEASE: {
-        "land": Prod.Land,
-        "ocean": Prod.Ocean,
-        "twisted": Prod.Twisted,
-    },
 
     "default": Beta.Land
 }
