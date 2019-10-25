@@ -6,7 +6,7 @@
 from .config_parser import CI_BUILD_COMMAND_BETA, CI_BUILD_COMMAND_RELEASE
 
 class Base():
-    DOCKER_REGISTRY = "082924159698.dkr.ecr.ap-northeast-1.amazonaws.com/orion"
+    DOCKER_REGISTRY = "082924159698.dkr.ecr.ap-northeast-1.amazonaws.com"
 
 class Beta:
     class Orion(Base):
@@ -14,9 +14,9 @@ class Beta:
         DOCKER_REGISTRY = "082924159698.dkr.ecr.ap-northeast-1.amazonaws.com"
 
 config = {
-    CI_BUILD_COMMAND_BETA: Beta.Land,
+    CI_BUILD_COMMAND_BETA: Beta.Orion,
 
-    "default": Beta.Land
+    "default": Beta.Orion
 }
 
 if __name__ == "__main__":
