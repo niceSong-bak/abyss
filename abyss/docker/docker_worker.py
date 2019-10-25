@@ -29,7 +29,7 @@ class DockerWorker:
 
     def login_aws(self, name):
         result = subprocess.call(LOG.debug(
-            "$(aws ecr get-login --no-include-email --region ap-southeast-1 --profile {name})".format(name=name)), shell=True)
+            "$(aws ecr get-login --no-include-email --region ap-northeast-1 --profile {name})".format(name=name)), shell=True)
         if result != 0:
             LOG.error("login failed")
             return False
