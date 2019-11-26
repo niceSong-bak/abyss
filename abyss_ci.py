@@ -34,6 +34,7 @@ if __name__ == "__main__":
     else:
         commits = None
 
+    # jenkins 默认传递的环境变量，即配置中的工作目录。
     if "WORKSPACE" in os.environ:
         workplace = os.environ['WORKSPACE']
     else:

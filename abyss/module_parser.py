@@ -18,14 +18,8 @@ class ModuleParser:
     def modify_modules(self, commits):
         LOG.big_log_start("Start parser module")
         result = set()
-
-        #创建新分支
-        if commits is None or len(commits) < 1:
-            LOG.debug(self.project_path)
-            result.add(self.project_path)
-            return result
-
         self.modules = set()
+
         for path, dirs, file_names in self.g:
             #根目录全局打包
             # if self.project_path == path:
@@ -37,6 +31,11 @@ class ModuleParser:
             if (ABYSSYAML in file_names or ABYSSYML in file_names) and path not in self.modules:
                 LOG.debug(path)
                 self.modules.add(path)
+
+        # commits为空时，比如打tag
+        if commits is None or len(commits) < 1:
+            LOG.debug("tag 编译所有模块")
+            return self.modules
 
         for commit in commits:
             module_path = self.match_module(commit)
